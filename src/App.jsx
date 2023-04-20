@@ -6,8 +6,12 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import theme from './theme/theme';
 import Signup from './components/pages/Signup';
+import { HeaderLayout } from './components/templates/HeaderLayout';
+import { Global } from '@emotion/react';
+import styles from './styles.css';
 
 function App() {
+
   // useEffect(() => {
   //   axios.defaults.withCredentials = true
   //   const getCsrfToken = async () => {
@@ -19,15 +23,20 @@ function App() {
   //   getCsrfToken()
   // }, [])
   return (
-    <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </BrowserRouter>
-    </ChakraProvider>
+    <>
+      <Global styles={styles} />
+      <ChakraProvider theme={theme}>
+        <BrowserRouter>
+          <HeaderLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </HeaderLayout>
+        </BrowserRouter>
+      </ChakraProvider>
+    </>
   )
 }
 
