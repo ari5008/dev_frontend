@@ -1,0 +1,17 @@
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(18, 18, 3);
+  font-size: 30px;
+}
+
+.slick-next {
+  right: -30px !important;
+}
+
+.slick-prev {
+  left: -30px !important;
+}
+
+.slick-arrow {
+  z-index: 2 !important;
+}
