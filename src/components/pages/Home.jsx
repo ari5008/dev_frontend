@@ -17,7 +17,7 @@ const Home = memo(() => {
     cssEase: "linear",
     speed: 1000, // スライドアニメーションのスピード
     variableWidth: true,
-    // dots: true,
+    dots: true,
   };
 
   if (isSmallScreen) {
@@ -36,16 +36,16 @@ const Home = memo(() => {
         <Box overflow="hidden" w="95%" margin="auto">
           <Slider hideArrows {...sliderSettings}>
             {carouselItems.map((carouselItem, index) => (
-              <Box key={index} p={2} pt={5}>
+              <Box key={index} p={2} pt={5} >
                 <Card
-                  direction={{ base: 'column', sm: 'row' }}
+                  direction={{ base: 'column', md: 'row' }}
                   overflow='hidden'
                 >
                   <Image
                     src={carouselItem.src}
                     alt={carouselItem.alt}
-                    h="50vh"
-                    w="50vh"
+                    h="42vh"
+                    w="42vh"
                     objectFit='cover'
                   />
                 </Card>
@@ -55,11 +55,12 @@ const Home = memo(() => {
         </Box>
       ) : (
         <Flex>
-          <Box w="30%">
+          <Box w="30%" h="100vh" bg="gray.400">
+            
           </Box>
-          <Box w="70%">
-            <Box w="70%" margin="auto">
-              <Slider {...sliderSettings}>
+          <Box w="70%" h="100vh">
+            <Box w="70%" margin="auto" >
+              <Slider {...sliderSettings} >
                 {carouselItems.map((carouselItem, index) => (
                   <Box key={index} p={3}>
                     <Card
@@ -69,8 +70,8 @@ const Home = memo(() => {
                       <Image
                         src={carouselItem.src}
                         alt={carouselItem.alt}
-                        h="70vh"
-                        w="70vh"
+                        h="65vh"
+                        w="65vh"
                         objectFit='cover'
                       />
                     </Card>
