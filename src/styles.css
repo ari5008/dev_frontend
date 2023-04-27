@@ -15,3 +15,15 @@
 .slick-arrow {
   z-index: 2 !important;
 }
+
+.link {
+  text-decoration: none; 
+}
+
+.link:hover span {
+  border-bottom: 1.5px solid white; 
+}
+
+span svg {
+  margin-left: 4px; 
+}
