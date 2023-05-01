@@ -1,7 +1,7 @@
 import { Box, Flex, Button, VStack, StackDivider } from "@chakra-ui/react";
 import { memo } from "react";
 
-export const CustomDrawer = memo(({ isOpen, handleOverlayClick, onClickHome, onClickLogin, onClickSignup }) => {
+export const CustomDrawer = memo(({ isOpen, handleOverlayClick, onClickHome, onClickLogin, onClickSignup, onClickViewTopic }) => {
 
   return (
     <>
@@ -41,6 +41,7 @@ export const CustomDrawer = memo(({ isOpen, handleOverlayClick, onClickHome, onC
               <Button border="2px solid gray" color="purple.800" bg="gray.300" w="100%" onClick={onClickHome}>Home</Button>
               <Button border="2px solid gray" color="purple.800" bg="gray.300" w="100%" onClick={onClickLogin}>ログイン</Button>
               <Button border="2px solid gray" color="purple.800" bg="gray.300" w="100%" onClick={onClickSignup}>アカウント登録</Button>
+              <Button border="2px solid gray" color="purple.800" bg="gray.300" w="100%" onClick={onClickViewTopic}>Topic閲覧</Button>
             </VStack>
           </Box>
         </Box>
