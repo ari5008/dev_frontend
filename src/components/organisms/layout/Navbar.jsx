@@ -1,5 +1,6 @@
-import { Box, Button, Flex, useDisclosure } from "@chakra-ui/react"
+import { Box, useDisclosure } from "@chakra-ui/react"
 import { SideMapIconButton } from "../../atoms/button/SideMapIconButton";
+import { NavDrawer } from "../../molecules/drawer/NavDrawer";
 
 export const Navbar = () => {
 
@@ -20,42 +21,9 @@ export const Navbar = () => {
           bgGradient="linear(to-r, teal.100, teal.200)"
         >
           <SideMapIconButton onOpen={onOpen} />
-
         </Box>
-
-        {isOpen && (
-          <Box
-            bg="rgba(0, 0, 0, 0.5)"
-            position="fixed"
-            top="0"
-            right="0"
-            height="100vh"
-            width="100vw"
-            zIndex="10"
-            onClick={handleOverlayClick}
-          >
-            <Box
-              bg="gray.100"
-              position="absolute"
-              top="0"
-              left="0"
-              height="100vh"
-              width="500px"
-              boxShadow="-2px 0px 5px rgba(0,0,0,0.25)"
-              zIndex="20"
-            >
-              <Flex justify="flex" padding="10px">
-                <Button
-                  color="purple.800" border="2px solid gray" onClick={handleOverlayClick}>
-                  Close
-                </Button>
-              </Flex>
-            </Box>
-          </Box>
-        )}
+        <NavDrawer isOpen={isOpen} handleOverlayClick={handleOverlayClick} />
       </Box>
-
-
     </>
   )
 }
