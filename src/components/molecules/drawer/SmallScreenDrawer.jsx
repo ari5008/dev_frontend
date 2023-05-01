@@ -1,7 +1,7 @@
 import { Box, Flex, Button, VStack, StackDivider } from "@chakra-ui/react";
 import { memo } from "react";
 
-export const CustomDrawer = memo(({ isOpen, handleOverlayClick, onClickHome, onClickLogin, onClickSignup, onClickViewTopic }) => {
+export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, onClickHome, onClickLogin, onClickSignup, onClickViewTopic }) => {
 
   return (
     <>
