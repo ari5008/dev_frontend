@@ -6,9 +6,10 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import theme from './theme/theme';
 import Signup from './components/pages/Signup';
-import { HeaderLayout } from './components/templates/HeaderLayout';
 import { Global } from '@emotion/react';
 import styles from './styles.css';
+import { ViewTopic } from './components/pages/ViewTopic';
+import { Layout } from './components/templates/Layout';
 
 function App() {
 
@@ -27,13 +28,14 @@ function App() {
       <Global styles={styles} />
       <ChakraProvider theme={theme}>
         <BrowserRouter>
-          <HeaderLayout>
+          <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/topic" element={<ViewTopic />} />
             </Routes>
-          </HeaderLayout>
+          </Layout>
         </BrowserRouter>
       </ChakraProvider>
     </>
