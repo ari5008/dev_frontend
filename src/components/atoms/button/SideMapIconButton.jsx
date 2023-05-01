@@ -31,7 +31,7 @@ export const SideMapIconButton = memo(({ onOpen }) => {
           variant="unstyled"
           onClick={onOpen}
         />
-        <Text color="gray.400" fontSize='15px' paddingTop="2.7rem">サイドマップ</Text>
+        <Text color="gray.400" fontSize='13px' paddingTop="2.7rem">サイドマップ</Text>
       </Flex>
     </>
   )
