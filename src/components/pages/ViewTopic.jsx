@@ -1,10 +1,9 @@
 import { Box, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Wrap } from "@chakra-ui/react";
 import { memo } from "react";
 import { TopicCard } from "../molecules/card/TopicCard";
+import backgroundImage from "../../images/topic.jpg"
 
 export const ViewTopic = memo(() => {
-
-  const url = "https://source.unsplash.com/NcdG9mK3PBY"
 
   const carouselItems = [
     { src: "https://source.unsplash.com/SAS0lq2QGLs", alt: "text1" },
@@ -26,10 +25,12 @@ export const ViewTopic = memo(() => {
         mb={8}
       >
         <Box
-          h="300px"
+          h="310px"
           borderTopRadius="15px"
           sx={{
-            backgroundImage: `url(${url})`
+            backgroundImage: backgroundImage,
+            backgroundPosition: "top top",
+            backgroundSize: "cover",
           }}
         >
           <TabList p={2}>
