@@ -1,13 +1,16 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { memo } from "react";
-import { ViewSlider } from "../molecules/ViewSlider";
+import { Box } from "@chakra-ui/react";
+import { ViewSlider } from "../molecules/slider/ViewSlider";
 
 const Home = memo(() => {
 
   return (
     <>
-      <ViewSlider />
+      <Box pt="4rem">
+        <ViewSlider />
+      </Box>
     </>
   );
 });
