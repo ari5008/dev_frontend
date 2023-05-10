@@ -1,6 +1,6 @@
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-// import axios from 'axios'
+import axios from 'axios'
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
@@ -13,16 +13,16 @@ import { Layout } from './components/templates/Layout';
 
 function App() {
 
-  // useEffect(() => {
-  //   axios.defaults.withCredentials = true
-  //   const getCsrfToken = async () => {
-  //     const { data } = await axios.get(
-  //       `${process.env.REACT_APP_API_URL}/csrf`
-  //     )
-  //     axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
-  //   }
-  //   getCsrfToken()
-  // }, [])
+  useEffect(() => {
+    axios.defaults.withCredentials = true
+    const getCsrfToken = async () => {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/csrf`
+      )
+      axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
+    }
+    getCsrfToken()
+  }, [])
   return (
     <>
       <Global styles={styles} />
