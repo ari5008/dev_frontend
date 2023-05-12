@@ -7,9 +7,10 @@ import Login from './components/pages/Login';
 import theme from './theme/theme';
 import Signup from './components/pages/Signup';
 import { Global } from '@emotion/react';
-import styles from './styles.css';
+import styles from "./styles.css?inline";
 import { ViewTopic } from './components/pages/ViewTopic';
 import { Layout } from './components/templates/Layout';
+import { Account } from './components/pages/Account';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
     axios.defaults.withCredentials = true
     const getCsrfToken = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL}/csrf`
+        `${import.meta.env.VITE_API_URL}/csrf`
       )
       axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
     }
@@ -34,6 +35,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/topic" element={<ViewTopic />} />
+              <Route path="/account" element={<Account />} />
             </Routes>
           </Layout>
         </BrowserRouter>
