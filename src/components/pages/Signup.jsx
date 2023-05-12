@@ -1,49 +1,36 @@
 import { Box, Button, Divider, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
 import { memo, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
-import { useError } from "../../hooks/useError";
-import ErrorAlert from "../atoms/alert/ErrorAlert";
+import { Link } from 'react-router-dom';
+import { useMutateAuth } from "../../hooks/useMutateAuth";
 
 const Signup = memo(() => {
 
   const outerBoxStyles = {
     background: 'url(https://source.unsplash.com/SAS0lq2QGLs) center/cover no-repeat',
-    backgroundPosition: 'bottom top',
+    backgroundPosition: 'center bottom',
   }
 
-  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { switchErrorHandling, errors } = useError()
+  const { signupMutation } = useMutateAuth()
 
-  const submitAuthHandler = async (e) => {
+  const submitSignupHandler = async (e) => {
     e.preventDefault()
-    await axios.post(`${process.env.REACT_APP_API_URL}/signup`, {
-      email: email,
-      password: password,
-    })
-      .then(() => {
-        navigate('/login')
-      })
-      .catch((err) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
+    signupMutation
+      .mutate({
+        email: email,
+        password: password,
       })
   }
 
   return (
     <>
-      {errors && <ErrorAlert errors={errors} />}
-      <Flex align="center" justify="center" >
+      <Flex align="center" justify="center" pt="3rem">
         <Box h="lg" w="lg" p={20} borderRadius="xl" shadow="md" sx={outerBoxStyles} color="purple.800">
           <Box bg="black" border="1px solid white" borderRadius="md" mb={3}>
             <Heading as="h1" size="lg" textAlign="center" color="white" p={3}>新規登録</Heading>
           </Box>
-          <form onSubmit={submitAuthHandler}>
+          <form onSubmit={submitSignupHandler}>
             <Stack spacing={6} pt={10} px={8} >
               <Input
                 type="email"
@@ -68,15 +55,19 @@ const Signup = memo(() => {
             </Stack>
           </form>
           <Box textAlign="center" shadow="md">
-            <Divider my={4} />
+            <Divider my={6} />
 
-            <Text color="white" mt={4} mb={6}>
+            <Text color="white" mt={2} mb={6}>
               アカウントをお持ちの方
             </Text>
             <Link
               to='/login'
-              style={{ backgroundColor: 'black', borderRadius: "5px", padding: '8px', color: "white", border: "1px solid gray" }}
-
+              style={{
+                borderRadius: "5px",
+                padding: '4px',
+                color: "white",
+                textDecoration: "underline"
+              }}
             >
               ログイン
             </Link>
