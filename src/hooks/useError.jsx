@@ -1,20 +1,20 @@
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useMessage } from "./useMessage"
 
 export const useError = () => {
 
-  const [errors, setErrors] = useState([])
+  const { showMessage } = useMessage()
   const navigate = useNavigate()
   const getCsrfToken = async () => {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_API_URL}/csrf`
+      `${import.meta.env.VITE_API_URL}/csrf`
     )
     axios.defaults.headers.common['X-CSRF-TOKEN'] = data.csrf_token
   }
 
   const switchErrorHandling = (msg) => {
-    
+
     let newErrors = []
     if (msg.includes('invalid csrf token')) {
       newErrors.push('再度ログインしてください');
@@ -39,9 +39,17 @@ export const useError = () => {
     if (msg.includes('same email')) {
       newErrors.push('同じメールアドレスが既に存在します');
     }
+    if (msg.includes('record not found')) {
+      newErrors.push('メールアドレスが正しくありません');
+    }
+    if (msg.includes('crypto/bcrypt: hashedPassword is not the hash of the given password')) {
+      newErrors.push('パスワードが正しくありません');
+    }
 
-    setErrors(newErrors)
-  }
+    newErrors.map((err) => {
+      showMessage({ title: err, status: "error" })
+    })
+}
 
-  return { switchErrorHandling, errors }
+return { switchErrorHandling }
 }
