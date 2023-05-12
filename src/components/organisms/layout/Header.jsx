@@ -6,13 +6,17 @@ import "../../../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { SmallScreenDrawer } from "../../molecules/drawer/SmallScreenDrawer";
+import { useLoginUser } from "../../../providers/LoginUserProvider";
+import { useMutateAuth } from "../../../hooks/useMutateAuth";
 
 export const Header = memo(() => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isLoggedIn } = useLoginUser()
+  const { logoutMutation } = useMutateAuth()
 
-  const handleOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
       onClose();
     }
   };
@@ -23,6 +27,10 @@ export const Header = memo(() => {
   const onClickLogin = () => navigate("/login")
   const onClickSignup = () => navigate("/signup")
   const onClickViewTopic = () => navigate("/topic")
+
+  const logout = async () => {
+    await logoutMutation.mutateAsync()
+  }
 
   return (
     <>
@@ -53,22 +61,32 @@ export const Header = memo(() => {
           </Box>
         </Flex>
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }} justifyContent="flex-end">
-          <Box px={3} m={1}>
-            <Link to="/login" className="link">
-              <span>
-                ログイン
-                <FontAwesomeIcon icon={faSignInAlt} />
-              </span>
-            </Link>
-          </Box>
-          <Box px={3} m={1}>
-            <Link to="/signup" className="link">
-              <span>
-                新規登録
-                <FontAwesomeIcon icon={faUserPlus} />
-              </span>
-            </Link>
-          </Box>
+          {!isLoggedIn ? (
+            <>
+              <Box px={3} m={1}>
+                <Link to="/login" className="link">
+                  <span>
+                    ログイン
+                    <FontAwesomeIcon icon={faSignInAlt} />
+                  </span>
+                </Link>
+              </Box>
+              <Box px={3} m={1}>
+                <Link to="/signup" className="link">
+                  <span>
+                    新規登録
+                    <FontAwesomeIcon icon={faUserPlus} />
+                  </span>
+                </Link>
+              </Box>
+            </>
+          ) : (
+            <Box px={3} m={1}>
+              <Link to="/" className="link" onClick={logout}>
+                <span>ログアウト</span>
+              </Link>
+            </Box>
+          )}
         </Flex>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
