@@ -1,56 +1,81 @@
 import { Box, Button, Divider, Flex, Heading, Input, Stack, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useMutateAuth } from "../../hooks/useMutateAuth";
 
-const Login = () => {
-
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+const Login = memo(() => {
 
   const outerBoxStyles = {
     background: 'url(https://source.unsplash.com/SAS0lq2QGLs) center/cover no-repeat',
     backgroundPosition: 'center bottom',
   }
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value)
-  }
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const { loginMutation } = useMutateAuth()
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value)
+  const submitLoginHandler = async (e) => {
+    e.preventDefault()
+    loginMutation
+      .mutate({
+        email: email,
+        password: password,
+      })
   }
 
   return (
     <>
-      <Flex align="center" justify="center" height="90vh">
+      <Flex align="center" justify="center" pt="3rem">
         <Box h="lg" w="lg" p={20} borderRadius="xl" shadow="md" sx={outerBoxStyles} color="purple.800">
           <Box bg="black" border="1px solid white" borderRadius="md" mb={3}>
-            <Heading as="h1" size="lg" textAlign="center" color="white" p={3}>ログインページ</Heading>
+            <Heading as="h1" size="lg" textAlign="center" color="white" p={3}>ログイン</Heading>
           </Box>
-          <form>
+          <form onSubmit={submitLoginHandler}>
             <Stack spacing={6} pt={10} px={8} >
-              <Input type="email" placeholder="メールアドレス" value={email} onChange={onChangeEmail} bg="white" />
-              <Input type="password" placeholder="パスワード" value={password} onChange={onChangePassword} bg="white" />
+              <Input
+                type="email"
+                placeholder="メールアドレス"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                bg="white"
+              />
+              <Input
+                type="password"
+                placeholder="パスワード"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                bg="white"
+              />
               <Button
                 colorScheme='teal'
-                isDisabled=""
+                type="submit"
               >
                 ログイン
               </Button>
             </Stack>
           </form>
           <Box textAlign="center" shadow="md">
-            <Divider my={4} />
+            <Divider my={6} />
 
-            <Text color="white" mt={4} mb={6}>
-              アカウントを持っていない方
+            <Text color="white" mt={2} mb={6}>
+              アカウントをお持ちでない方
             </Text>
-            <Link to='/signup' style={{ backgroundColor: '#2874aa', borderRadius: "10%", padding: '8px', color: "white" }}>登録する(無料)</Link>
+            <Link
+              to='/signup'
+              style={{
+                borderRadius: "5px",
+                padding: '8px',
+                color: "white",
+                textDecoration: "underline"
+              }}
+            >
+              登録する(無料)
+            </Link>
           </Box>
         </Box>
       </Flex>
     </>
   )
-}
+})
 
 export default Login;
