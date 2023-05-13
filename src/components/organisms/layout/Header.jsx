@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Flex, Box, useDisclosure } from "@chakra-ui/react"
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MenuIconButton } from "../../atoms/button/MenuIconButton";
 import "../../../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,13 +20,6 @@ export const Header = memo(() => {
       onClose();
     }
   };
-
-  const navigate = useNavigate()
-
-  const onClickHome = () => navigate("/")
-  const onClickLogin = () => navigate("/login")
-  const onClickSignup = () => navigate("/signup")
-  const onClickViewTopic = () => navigate("/topic")
 
   const logout = async () => {
     await logoutMutation.mutateAsync()
@@ -90,7 +83,7 @@ export const Header = memo(() => {
         </Flex>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
-      <SmallScreenDrawer isOpen={isOpen} handleOverlayClick={handleOverlayClick} onClickHome={onClickHome} onClickLogin={onClickLogin} onClickSignup={onClickSignup} onClickViewTopic={onClickViewTopic} />
+      <SmallScreenDrawer isOpen={isOpen} handleOverlayClick={handleOverlayClick} logout={logout} isLoggedIn={isLoggedIn}/>
     </>
   )
 })
