@@ -24,6 +24,15 @@
   border-bottom: 1.5px solid white; 
 }
 
+.navlink {
+  text-decoration: none; 
+}
+
+.navlink:hover .box {
+  transform: translateY(2px);
+  transition: all ease-in-out 0.2s;
+}
+
 span svg {
   margin-left: 4px; 
 }
