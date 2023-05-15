@@ -6,6 +6,7 @@ const useBreakpoint = {
     global: {
       body: {
         background: `url(${blueImage}) center/cover no-repeat`,
+        minH: "100vh",
         color: "white",
       }
     }
