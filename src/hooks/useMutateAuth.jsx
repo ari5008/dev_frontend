@@ -3,7 +3,6 @@ import { useMessage } from "./useMessage"
 import { useMutation } from "@tanstack/react-query"
 import { useError } from "./useError"
 import axios from "axios"
-import { useLoginUser } from "../providers/LoginUserProvider"
 import { useState } from "react"
 
 export const useMutateAuth = () => {
@@ -11,7 +10,6 @@ export const useMutateAuth = () => {
   const [loading, setLoading] = useState(false);
   const { showMessage } = useMessage()
   const { switchErrorHandling } = useError()
-  const { setIsLoggedIn } = useLoginUser()
 
   const signupMutation = useMutation(
     async (user) => {
@@ -44,7 +42,9 @@ export const useMutateAuth = () => {
     },
     {
       onSuccess: () => {
-        setIsLoggedIn(true)
+        const expiryDate = new Date();
+        expiryDate.setMinutes(expiryDate.getMinutes() + 1); 
+        localStorage.setItem('expiry', expiryDate.getTime().toString());
         navigate('/')
         showMessage({ title: "ログインしました", status: "success" })
         setLoading(false);
@@ -64,7 +64,7 @@ export const useMutateAuth = () => {
     async () => await axios.post(`${import.meta.env.VITE_API_URL}/logout`),
     {
       onSuccess: () => {
-        setIsLoggedIn(false)
+        localStorage.removeItem('expiry');
         navigate('/login')
         showMessage({ title: "ログアウトしました", status: "success" })
       },
