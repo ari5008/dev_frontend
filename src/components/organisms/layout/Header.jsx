@@ -1,18 +1,17 @@
 import { memo } from "react";
 import { Flex, Box, useDisclosure } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
-import { MenuIconButton } from "../../atoms/button/MenuIconButton";
 import "../../../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { SmallScreenDrawer } from "../../molecules/drawer/SmallScreenDrawer";
-import { useLoginUser } from "../../../providers/LoginUserProvider";
 import { useMutateAuth } from "../../../hooks/useMutateAuth";
+import { SmallScreenMenuButton } from './../../atoms/button/SmallScreenMenuButton';
 
 export const Header = memo(() => {
 
+  const expiry = localStorage.getItem('expiry');
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { isLoggedIn } = useLoginUser()
   const { logoutMutation } = useMutateAuth()
 
   const handleOverlayClick = (e) => {
@@ -54,7 +53,7 @@ export const Header = memo(() => {
           </Box>
         </Flex>
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }} justifyContent="flex-end">
-          {!isLoggedIn ? (
+          {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
             <>
               <Box px={3} m={1}>
                 <Link to="/login" className="link">
@@ -74,16 +73,23 @@ export const Header = memo(() => {
               </Box>
             </>
           ) : (
-            <Box px={3} m={1}>
-              <Link to="/" className="link" onClick={logout}>
-                <span>ログアウト</span>
-              </Link>
-            </Box>
+            <>
+              <Box px={3} m={1}>
+                <Link to="/account" className="link">
+                  <span>Myアカウント</span>
+                </Link>
+              </Box>
+              <Box px={3} m={1}>
+                <Link to="/" className="link" onClick={logout}>
+                  <span>ログアウト</span>
+                </Link>
+              </Box>
+            </>
           )}
         </Flex>
-        <MenuIconButton onOpen={onOpen} />
+        <SmallScreenMenuButton onOpen={onOpen} />
       </Flex>
-      <SmallScreenDrawer isOpen={isOpen} handleOverlayClick={handleOverlayClick} logout={logout} isLoggedIn={isLoggedIn}/>
+      <SmallScreenDrawer isOpen={isOpen} handleOverlayClick={handleOverlayClick} logout={logout} expiry={expiry} />
     </>
   )
 })

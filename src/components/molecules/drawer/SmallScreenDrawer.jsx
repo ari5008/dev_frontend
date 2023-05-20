@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../../../styles.css";
 import backgroundImage from "../../../images/smallNav.jpg";
 
-export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, isLoggedIn }) => {
+export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, expiry }) => {
 
   return (
     <>
@@ -67,7 +67,7 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, isL
                 </Link>
               </Box>
               <Divider color='primary' />
-              {!isLoggedIn ? (
+              {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
                 <>
                   <Box px={3} my={3} color="gray.800" >
                     <Link to="/signup" className="navlink" style={{ fontSize: "28px" }}>
