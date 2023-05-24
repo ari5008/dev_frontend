@@ -11,6 +11,7 @@ import styles from "./styles.css?inline";
 import { ViewTopic } from './components/pages/ViewTopic';
 import { Layout } from './components/templates/Layout';
 import { Account } from './components/pages/Account';
+import { ErrorPage } from './components/pages/ErrorPage';
 
 function App() {
 
@@ -35,7 +36,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/topic" element={<ViewTopic />} />
-              <Route path="/account" element={<Account />} />
+              <Route path="/account/:id" element={<Account />} />
+              <Route path="/*" element={<ErrorPage />} />
             </Routes>
           </Layout>
         </BrowserRouter>

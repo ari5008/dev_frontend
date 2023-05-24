@@ -17,7 +17,7 @@ export const useError = () => {
 
     let newErrors = []
     if (msg.includes('invalid csrf token')) {
-      newErrors.push('再度ログインしてください');
+      newErrors.push('ページの再読み込みが必要です');
       getCsrfToken()
       navigate('/login')
     }
@@ -46,10 +46,15 @@ export const useError = () => {
       newErrors.push('パスワードが正しくありません');
     }
 
+    if (msg.includes('missing or malformed jwt')) {
+      navigate('/login')
+      newErrors.push('ログインしてください');
+    }
+
     newErrors.map((err) => {
       showMessage({ title: err, status: "error" })
     })
-}
+  }
 
-return { switchErrorHandling }
+  return { switchErrorHandling }
 }
