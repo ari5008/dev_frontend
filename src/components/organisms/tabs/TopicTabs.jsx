@@ -1,7 +1,7 @@
 import { Box, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Wrap } from "@chakra-ui/react"
 import { memo } from "react"
 import backgroundImage from "../../../images/topic.jpg"
-import { TopicCard } from "../card/TopicCard";
+import { TopicCard } from './../../molecules/card/TopicCard';
 
 export const TopicTabs = memo(() => {
 
