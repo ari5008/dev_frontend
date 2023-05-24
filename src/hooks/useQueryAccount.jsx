@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
 import { useError } from "./useError"
 import axios from "axios"
+import { accountStore } from "../store/accountStore"
 
 export const useQueryAccount = () => {
   const { switchErrorHandling } = useError()
+  const updateAccount = accountStore((state) => state.updateEditedAccount)
 
   const getAccount = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/account`,
       { withCredentials: true }
     )
+    updateAccount(data)
     return data
   }
 
