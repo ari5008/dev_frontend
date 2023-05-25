@@ -3,6 +3,15 @@ import { memo } from "react"
 
 export const AccountAvatar = memo(({ updateAccount, editedAccount }) => {
 
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (upload) => {
+      updateAccount({ ...editedAccount, image_url: upload.target.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleAvatarClick = () => {
     document.getElementById("file-input").click();
   };
@@ -11,11 +20,10 @@ export const AccountAvatar = memo(({ updateAccount, editedAccount }) => {
     <>
       <Input
         type="file"
+        name="image_url"
         id="file-input"
         style={{ display: "none" }}
-        onChange={(e) =>
-          updateAccount({ ...editedAccount, image_url: URL.createObjectURL(e.target.files[0]) })
-        }
+        onChange={handleFileSelect}
       />
       <Avatar
         type="file"
