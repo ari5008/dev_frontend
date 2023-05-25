@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { memo } from "react";
-import { TopicTabs } from "../molecules/tabs/TopicTabs";
+import { TopicTabs } from "../organisms/tabs/TopicTabs";
 
 export const ViewTopic = memo(() => {
 
