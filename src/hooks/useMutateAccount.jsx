@@ -11,26 +11,9 @@ export const useMutateAccount = () => {
   const { showMessage } = useMessage()
   const { switchErrorHandling } = useError()
 
-  const getAccountMutation = useMutation(
-    () =>
-      axios.get(`${import.meta.env.VITE_API_URL}/account`, { withCredentials: true }),
-    {
-      onSuccess: (res) => {
-        return res.data
-      },
-      onError: (err) => {
-        if (err.response.data.message) {
-          switchErrorHandling(err.response.data.message)
-        } else {
-          switchErrorHandling(err.response.data)
-        }
-      },
-    }
-  )
-
   const updateAccountMutation = useMutation(
-    (account) =>
-      axios.put(`${import.meta.env.VITE_API_URL}/account/${account.id}`, {
+    (account) => 
+       axios.put(`${import.meta.env.VITE_API_URL}/account/${account.id}`, {
         name: account.name,
         image_url: account.image_url,
         introduction: account.introduction,
@@ -45,7 +28,7 @@ export const useMutateAccount = () => {
           )
         }
         showMessage({ title: "登録しました", status: "success" })
-        navigate(`/account/${res.data.id}`)
+        navigate(`/account`)
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -57,5 +40,5 @@ export const useMutateAccount = () => {
     }
   )
 
-  return { getAccountMutation, updateAccountMutation }
+  return { updateAccountMutation }
 }
