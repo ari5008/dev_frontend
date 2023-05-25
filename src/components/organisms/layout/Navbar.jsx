@@ -2,8 +2,9 @@ import { Box, Text, useDisclosure } from "@chakra-ui/react"
 import { SideMapIconButton } from "../../atoms/button/SideMapIconButton";
 import { NavDrawer } from "../../molecules/drawer/NavDrawer";
 import gray from "../../../images/gray.jpg"
+import { memo } from "react";
 
-export const Navbar = () => {
+export const Navbar = memo(() => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -52,4 +53,4 @@ export const Navbar = () => {
       </Box>
     </>
   )
-}
+})
