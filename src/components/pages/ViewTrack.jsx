@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import { memo } from "react";
-import { TopicTabs } from "../organisms/tabs/TopicTabs";
+import { TrackTabs } from './../organisms/tabs/TrackTabs';
 
-export const ViewTopic = memo(() => {
+export const ViewTrack = memo(() => {
 
   return (
     <>
       <Box mt="3rem"></Box>
-      <TopicTabs />
+      <TrackTabs />
     </>
   )
 });
