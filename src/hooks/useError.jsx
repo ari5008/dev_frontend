@@ -16,6 +16,10 @@ export const useError = () => {
   const switchErrorHandling = (msg) => {
 
     let newErrors = []
+    if (msg.includes('missing or malformed jwt')) {
+      navigate('/login')
+      newErrors.push('ログインしてください');
+    }
     if (msg.includes('invalid csrf token')) {
       newErrors.push('ページの再読み込みが必要です');
       getCsrfToken()
@@ -45,10 +49,11 @@ export const useError = () => {
     if (msg.includes('crypto/bcrypt: hashedPassword is not the hash of the given password')) {
       newErrors.push('パスワードが正しくありません');
     }
-
-    if (msg.includes('missing or malformed jwt')) {
-      navigate('/login')
-      newErrors.push('ログインしてください');
+    if (msg.includes('limited name max 20 char')) {
+      newErrors.push('20文字以内で入力してください');
+    }
+    if (msg.includes('limited introduction max 100 char')) {
+      newErrors.push('100文字以内で入力してください');
     }
 
     newErrors.map((err) => {
