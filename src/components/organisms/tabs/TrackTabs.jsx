@@ -1,9 +1,9 @@
 import { Box, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Wrap } from "@chakra-ui/react"
 import { memo } from "react"
-import backgroundImage from "../../../images/topic.jpg"
-import { TopicCard } from './../../molecules/card/TopicCard';
+import backgroundImage from "../../../images/track.jpg"
+import { TrackCard } from './../../molecules/card/TrackCard';
 
-export const TopicTabs = memo(() => {
+export const TrackTabs = memo(() => {
 
   const carouselItems = [
     { src: "https://source.unsplash.com/SAS0lq2QGLs", alt: "text1" },
@@ -59,7 +59,7 @@ export const TopicTabs = memo(() => {
               <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={10}>
                 {carouselItems.map((carouselItem, index) => (
                   <Box key={index} minWidth={{ base: "auto", md: "250px" }}>
-                    <TopicCard carouselItem={carouselItem} />
+                    <TrackCard carouselItem={carouselItem} />
                   </Box>
                 ))}
               </Grid>

@@ -4,7 +4,7 @@ import "../../../styles.css"
 import { HeratButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
 
-export const TopicCard = memo(({ carouselItem }) => {
+export const TrackCard = memo(({ carouselItem }) => {
 
   const [isFilled, setIsFilled] = useState(false);
   const [count, setCount] = useState(0);
@@ -17,7 +17,7 @@ export const TopicCard = memo(({ carouselItem }) => {
   return (
     <Card
       w={{ base: "350px", md: "250px", xl: "320px" }}
-      h={{ base: "450px", xl: "450px" }}
+      h={{ base: "480px", xl: "450px" }}
       bg="gray.100"
       borderRadius="10px"
       shadow="lg"
@@ -29,12 +29,11 @@ export const TopicCard = memo(({ carouselItem }) => {
         bgGradient='linear(to-r, black, teal.700, black)'
         color="gray.200"
         textAlign="center"
-        h="130px"
-        lineHeight="55px"
+        h="200px"
         borderTopRadius="10px"
       >
-        <Flex mt={2}>
-          <Box flex={1} textAlign="left" pl={6}>
+        <Flex mt={2} p={2}>
+          <Box flex={1} textAlign="left" pl={6} >
             <Text fontSize="sm" >曲名</Text>
           </Box>
           <Box flex={1} textAlign="left" fontWeight="bold">
@@ -42,7 +41,7 @@ export const TopicCard = memo(({ carouselItem }) => {
           </Box>
         </Flex>
         <Divider />
-        <Flex>
+        <Flex p={2}>
           <Box flex={1} textAlign="left" pl={6}>
             <Text fontSize="sm" >アーティスト名</Text>
           </Box>
