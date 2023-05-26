@@ -1,25 +1,26 @@
-import { Box, Button, Flex, Heading, Input, Spinner, Text, Textarea } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Heading, Input, Spinner, Tag, Text, Textarea } from "@chakra-ui/react";
 import { memo, useEffect } from "react";
 import { useQueryAccount } from "../../hooks/useQueryAccount";
 import { accountStore } from "../../store/accountStore";
 import { useMutateAccount } from './../../hooks/useMutateAccount';
 import { AccountAvatar } from "../atoms/avatar/AccountAvatar";
+import { CheckIcon } from "@chakra-ui/icons";
 
 export const Account = memo(() => {
 
   const { isLoading } = useQueryAccount()
   const { editedAccount } = accountStore()
   const updateAccount = accountStore((state) => state.updateEditedAccount)
-  const { updateAccountMutation } = useMutateAccount()
-
-  useEffect(() => {
-    // console.log(editedAccount)
-  }, [editedAccount])
+  const { updateAccountMutation, loading } = useMutateAccount()
 
   const submitAccountHandler = (e) => {
     e.preventDefault()
     updateAccountMutation.mutate(editedAccount)
   }
+
+  useEffect(() => {
+    // console.log(editedAccount)
+  }, [editedAccount])
 
   return (
     <>
@@ -42,53 +43,74 @@ export const Account = memo(() => {
           color='black'
           flexDirection='column'
         >
-          <Box h={{ base: '360px', md: '300px' }} bg='white' borderTopRadius={10}>
+          <Box h={{ base: '380px', md: '330px' }} bg='white' borderTopRadius={10}>
             <Heading textAlign='center' fontSize="25px" py={7}>アカウント画面</Heading>
-            <Box ml={{ base: '25px', md: '45px' }}>
-              <form onSubmit={submitAccountHandler}>
-                <Box
-                  display='flex'
-                  alignItems='center'
-                  justifyContent='left'
-                  pb={8}
-                >
-                  <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount}/>
-                  <Input
-                    placeholder='ユーザー名(20文字以内)'
-                    variant='outline'
-                    w="60%"
-                    type="text"
-                    onChange={(e) => updateAccount({ ...editedAccount, name: e.target.value })}
-                    value={editedAccount.name}
-                  />
-                </Box>
-                <Box
-                  display='flex'
-                  alignItems={{ base: 'center', md: 'flex-end' }}
-                  justifyContent='left'
-                  flexDirection={{ base: 'column', md: 'row' }}
-                >
-                  <Textarea
-                    placeholder='プロフィール(100文字以内)'
-                    resize="none"
-                    mr={5}
-                    mb={{ base: '20px', md: '0px' }}
-                    type="text"
-                    onChange={(e) => updateAccount({ ...editedAccount, introduction: e.target.value })}
-                    value={editedAccount.introduction}
-                  />
-                  <Button
-                    colorScheme='teal' variant='outline'
-                    mr={8}
-                    size="md"
-                    type="submit"
-                  >
-                    登録する
-                  </Button>
-                </Box>
-              </form>
-            </Box>
+            <form onSubmit={submitAccountHandler}>
+              <Grid
+                templateColumns="0.1fr 1fr"
+                pl={{ base: '25px', md: '80px' }}
+              >
+                <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount} />
+                <Grid templateRows='repeat(2, auto)' gap={2} >
+                  <GridItem rowSpan={1} colSpan={2} >
+                    <Tag variant='outline' colorScheme='black'>ユーザー名</Tag>
+                  </GridItem>
+                  <GridItem colSpan={2} >
+                    <Input
+                      name="user_name"
+                      placeholder='(20文字以内)'
+                      variant='outline'
+                      w="95%"
+                      type="text"
+                      width={{ base: '95%', md: '50%' }}
+                      onChange={(e) => updateAccount({ ...editedAccount, user_name: e.target.value })}
+                      value={editedAccount.user_name}
+                    />
+                  </GridItem>
+                </Grid>
+              </Grid>
+              <Grid templateColumns="1fr" gap={2} pt={6} pl={{ base: '25px', md: '80px' }}>
+                <GridItem>
+                  <Tag variant="outline" colorScheme="black">
+                    プロフィール
+                  </Tag>
+                </GridItem>
+                <Grid templateColumns={{ base: "1fr", md: "1fr auto" }} alignItems="center">
+                  <GridItem>
+                    <Textarea
+                      name="introduction"
+                      placeholder="(100文字以内)"
+                      resize="none"
+                      pr={6}
+                      width="95%"
+                      mb={{ base: "20px", md: "0px" }}
+                      type="text"
+                      onChange={(e) =>
+                        updateAccount({ ...editedAccount, introduction: e.target.value })
+                      }
+                      value={editedAccount.introduction}
+                    />
+                  </GridItem>
+                  <GridItem alignSelf="center" justifySelf="center">
+                    <Button
+                      colorScheme="teal"
+                      variant="outline"
+                      size="md"
+                      type="submit"
+                      mr="50px"
+                      mt={{ base: "0px", md: "35px" }}
+                      isLoading={loading}
+                      loadingText="登録する"
+                    >
+                      <CheckIcon mr={1} />
+                      登録する
+                    </Button>
+                  </GridItem>
+                </Grid>
+              </Grid>
+            </form>
           </Box>
+          
           <Box flex='1' bg='gray.200' borderBottomRadius={10}>
             <Text></Text>
           </Box>
