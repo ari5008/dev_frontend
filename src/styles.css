@@ -38,7 +38,7 @@ span svg {
 }
 
 .Image:hover {
-  animation: spin 2s linear infinite;
+  animation: spin 3s linear infinite;
 }
 
 @keyframes spin {
@@ -48,4 +48,12 @@ span svg {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.button_link span {
+  border-bottom: 1px solid transparent; 
+}
+
+.button_link:hover span {
+  border-bottom: 1px solid white; 
 }
