@@ -1,15 +1,30 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Flex, Box, useDisclosure } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
 import "../../../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { SmallScreenDrawer } from "../../molecules/drawer/SmallScreenDrawer";
 import { useMutateAuth } from "../../../hooks/useMutateAuth";
 import { SmallScreenMenuButton } from './../../atoms/button/SmallScreenMenuButton';
+import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 export const Header = memo(() => {
 
+  // const [id, setId] = useState(null)
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`${import.meta.env.VITE_API_URL}/account`);
+  //     setId(response.data.id)import { ViewIcon } from '@chakra-ui/icons';
+
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // fetchData();
+
+  const queryClient = useQueryClient()
   const expiry = localStorage.getItem('expiry');
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { logoutMutation } = useMutateAuth()
@@ -22,6 +37,7 @@ export const Header = memo(() => {
 
   const logout = async () => {
     await logoutMutation.mutateAsync()
+    queryClient.removeQueries(['account'])
   }
 
   return (
@@ -38,17 +54,19 @@ export const Header = memo(() => {
         top="0"
         width="100%"
       >
-        <Flex align="center" mr={8} _hover={{ cursor: "pointer" }}>
+        <Flex align="center" mr={9} _hover={{ cursor: "pointer" }}>
           <Box fontSize="lg" textShadow="2px 0px 2px #0b0c0d">
             <Link to="/" className="link">
-              <span>曲選出</span>
+              <span>～ 曲選出 ～</span>
             </Link>
           </Box>
         </Flex>
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }}>
-          <Box px={2} m={1}>
-            <Link to="/topic" className="link">
-              <span>Topic閲覧</span>
+          <Box px={3} m={1}>
+            <Link to="/track" className="link">
+              <span>
+                曲を閲覧
+              </span>
             </Link>
           </Box>
         </Flex>
@@ -75,13 +93,19 @@ export const Header = memo(() => {
           ) : (
             <>
               <Box px={3} m={1}>
-                <Link to="/account" className="link">
-                  <span>Myアカウント</span>
+                <Link to={`/account`} className="link">
+                  <span>
+                    Myアカウント
+                    <FontAwesomeIcon icon={faUser} />
+                  </span>
                 </Link>
               </Box>
               <Box px={3} m={1}>
                 <Link to="/" className="link" onClick={logout}>
-                  <span>ログアウト</span>
+                  <span>
+                    ログアウト
+                    <FontAwesomeIcon icon={faSignOutAlt} />
+                  </span>
                 </Link>
               </Box>
             </>
