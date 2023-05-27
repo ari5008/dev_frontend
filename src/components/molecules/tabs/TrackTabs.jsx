@@ -1,9 +1,13 @@
-import { Box, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Wrap } from "@chakra-ui/react"
+import { Box, Button, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, Wrap } from "@chakra-ui/react"
 import { memo } from "react"
 import backgroundImage from "../../../images/track.jpg"
-import { TrackCard } from './../../molecules/card/TrackCard';
+import { TrackCard } from '../card/TrackCard';
+import { EditIcon } from "@chakra-ui/icons";
+import { Link } from 'react-router-dom';
 
 export const TrackTabs = memo(() => {
+
+  const expiry = localStorage.getItem('expiry');
 
   const carouselItems = [
     { src: "https://source.unsplash.com/SAS0lq2QGLs", alt: "text1" },
@@ -49,6 +53,12 @@ export const TrackTabs = memo(() => {
               p="2"
             >
               <Text fontWeight="bold" fontSize="40px" transform="skewX(-10deg)" textShadow="0px 1px 1px #0b0c0d">曲一覧</Text>
+              {(expiry && new Date().getTime() < parseInt(expiry)) ? (
+                <Button as={Link} to="/createTrack" colorScheme='blackAlpha' mt="65px">
+                  <EditIcon mr={1} />
+                  曲を選ぶ
+                </Button>
+              ) : null}
             </Box>
           </Box>
         </Box>
