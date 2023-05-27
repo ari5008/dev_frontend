@@ -17,7 +17,7 @@ export const useMutateAccount = () => {
     async (account) => {
       setLoading(true);
        const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/${account.id}`, {
-        name: account.name,
+        user_name: account.user_name,
         image_url: account.image_url,
         introduction: account.introduction,
       })
