@@ -2,8 +2,9 @@ import { Box, Button, Grid, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tab
 import { memo } from "react"
 import backgroundImage from "../../../images/track.jpg"
 import { TrackCard } from '../card/TrackCard';
-import { EditIcon } from "@chakra-ui/icons";
+import { SmallAddIcon } from "@chakra-ui/icons";
 import { Link } from 'react-router-dom';
+import "../../../styles.css";
 
 export const TrackTabs = memo(() => {
 
@@ -54,9 +55,11 @@ export const TrackTabs = memo(() => {
             >
               <Text fontWeight="bold" fontSize="40px" transform="skewX(-10deg)" textShadow="0px 1px 1px #0b0c0d">曲一覧</Text>
               {(expiry && new Date().getTime() < parseInt(expiry)) ? (
-                <Button as={Link} to="/createTrack" colorScheme='blackAlpha' mt="65px">
-                  <EditIcon mr={1} />
-                  曲を選ぶ
+                <Button as={Link} to="/createTrack" colorScheme='blackAlpha' mt="65px" className="button_link" >
+                  <span >
+                    曲を選ぶ
+                  <SmallAddIcon ml="2px" pb={1} fontSize="20px"/>
+                  </span>
                 </Button>
               ) : null}
             </Box>
