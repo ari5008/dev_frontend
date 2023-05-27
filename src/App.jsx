@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import axios from 'axios'
+import styles from "./styles.css?inline";
+import { Layout } from './components/templates/Layout';
+import { Global } from '@emotion/react';
+import theme from './theme/theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './components/pages/Home';
-import Login from './components/pages/Login';
-import theme from './theme/theme';
-import Signup from './components/pages/Signup';
-import { Global } from '@emotion/react';
-import styles from "./styles.css?inline";
-import { ViewTopic } from './components/pages/ViewTopic';
-import { Layout } from './components/templates/Layout';
+import { Login } from './components/pages/Login';
+import { Signup } from './components/pages/Signup';
+import { ViewTrack } from './components/pages/ViewTrack';
+import { CreateTrack } from './components/pages/CreateTrack';
 import { Account } from './components/pages/Account';
 import { ErrorPage } from './components/pages/ErrorPage';
 
@@ -35,8 +36,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/topic" element={<ViewTopic />} />
-              <Route path="/account/:id" element={<Account />} />
+              <Route path="/track" element={<ViewTrack />} />
+              <Route path="/createTrack" element={<CreateTrack />} />
+              <Route path="/account" element={<Account />} />
               <Route path="/*" element={<ErrorPage />} />
             </Routes>
           </Layout>
