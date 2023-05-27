@@ -3,7 +3,7 @@ import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutateAuth } from "../../hooks/useMutateAuth";
 
-const Login = memo(() => {
+export const Login = memo(() => {
 
   const outerBoxStyles = {
     background: 'url(https://source.unsplash.com/SAS0lq2QGLs) center/cover no-repeat',
@@ -12,7 +12,7 @@ const Login = memo(() => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { loginMutation } = useMutateAuth()
+  const { loginMutation, loading } = useMutateAuth()
 
   const submitLoginHandler = async (e) => {
     e.preventDefault()
@@ -25,7 +25,7 @@ const Login = memo(() => {
 
   return (
     <>
-      <Flex align="center" justify="center" pt="3rem">
+      <Flex align="center" justify="center" pt="3.5rem">
         <Box h="lg" w="lg" p={20} borderRadius="xl" shadow="md" sx={outerBoxStyles} color="purple.800">
           <Box bg="black" border="1px solid white" borderRadius="md" mb={3}>
             <Heading as="h1" size="lg" textAlign="center" color="white" p={3}>ログイン</Heading>
@@ -49,6 +49,8 @@ const Login = memo(() => {
               <Button
                 colorScheme='teal'
                 type="submit"
+                isLoading={loading}
+                loadingText='ログイン'
               >
                 ログイン
               </Button>
@@ -77,5 +79,3 @@ const Login = memo(() => {
     </>
   )
 })
-
-export default Login;
