@@ -21,7 +21,7 @@ export const useMutateAccount = () => {
         image_url: account.image_url,
         introduction: account.introduction,
       })
-      return response.data;
+      return response;
     },
     {
       onSuccess: (res, variables) => {
