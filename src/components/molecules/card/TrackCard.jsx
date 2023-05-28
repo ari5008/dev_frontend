@@ -1,8 +1,9 @@
-import { Box, Button, Card, CardFooter, Divider, Flex, Image, Text } from "@chakra-ui/react"
+import { Box, Button, Card, CardFooter, Divider, Flex, Text } from "@chakra-ui/react"
 import { memo, useState } from "react"
 import "../../../styles.css"
 import { HeratButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
+import { TrackImage } from './../../atoms/image/TrackImage';
 
 export const TrackCard = memo(({ carouselItem }) => {
 
@@ -21,7 +22,7 @@ export const TrackCard = memo(({ carouselItem }) => {
       bg="gray.100"
       borderRadius="10px"
       shadow="lg"
-      _hover={{ cursor: "pointer", opacity: 0.9 }}
+      // _hover={{ cursor: "pointer", opacity: 0.9 }}
       display="flex"
       flexDirection="column"
     >
@@ -56,14 +57,7 @@ export const TrackCard = memo(({ carouselItem }) => {
         </Box>
       </Flex>
       <Flex flex={1} justifyContent="flex-end" alignItems="center" >
-        <Image
-          className="Image"
-          borderRadius="50%"
-          boxSize="200px"
-          src={carouselItem.src}
-          alt={carouselItem.alt}
-          m="auto"
-        />
+        <TrackImage src={carouselItem.src} boxSize={"220px"}/>
       </Flex>
       <CardFooter
         justify='space-between'
