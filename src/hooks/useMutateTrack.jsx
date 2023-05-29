@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useMessage } from './useMessage';
 import { useNavigate } from 'react-router-dom';
 import { trackStore } from './../store/trackStore';
+import { useState } from 'react';
 
 export const useMutateTrack = () => {
 
@@ -11,24 +12,22 @@ export const useMutateTrack = () => {
   const queryClient = useQueryClient()
   const { switchErrorHandling } = useError()
   const { showMessage } = useMessage()
+  const [loading, setLoading] = useState(false);
   const resetEditedTrack = trackStore((state) => state.resetEditedTrack)
 
   const createTrackMutation = useMutation(
     async (track) => {
+      setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/account/createTrack`, track)
       return response;
-
     },
     {
       onSuccess: (res) => {
-        const previousTracks = queryClient.getQueriesData(['tracks'])
-        if (previousTracks) {
-          queryClient.setQueryData(['tracks'], [...previousTracks, res.data])
-        } 
+        queryClient.setQueryData(["tracks"], (oldTracks) => [...oldTracks, res.data])
         navigate('/tracks')
         showMessage({ title: "登録しました", status: "success" })
-        console.log(res.data)
         resetEditedTrack()
+        setLoading(false);
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -36,10 +35,12 @@ export const useMutateTrack = () => {
         } else {
           switchErrorHandling(err.response.data)
         }
+        setLoading(false);
       },
     }
   )
   return {
     createTrackMutation,
+    loading
   }
 }
