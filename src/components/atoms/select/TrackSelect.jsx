@@ -9,15 +9,15 @@ export const TrackSelect = memo(({ editedTrack, updateTrack }) => {
         onChange={(e) => updateTrack({...editedTrack, genre: e.target.value})}
         value={editedTrack.genre}
       >
-      <option value='pop' >ポップ 🎶</option>
-      <option value='cute'>可愛い 💖</option>
-      <option value='rock'>ロック 🎸</option>
-      <option value='retro'>レトロ &#x1F4FB;</option>
-      <option value='relax'>癒されたい ☘️</option>
-      <option value='tension'>テンションが上がる 🔥</option>
-      <option value='innocence'>無心で聞きたい 😑</option>
-      <option value='driving'>ドライブで聞きたい 🚗</option>
-      <option value='recommend'>最近のおすすめ 👍</option>
+      <option value='ポップ'>ポップ 🎶</option>
+      <option value='可愛い'>可愛い 💖</option>
+      <option value='ロック'>ロック 🎸</option>
+      <option value='レトロ'>レトロ 💿</option>
+      <option value='癒されたい'>癒されたい ☘️</option>
+      <option value='テンションが上がる'>テンションが上がる 🔥</option>
+      <option value='無心で聞きたい'>無心で聞きたい 😑</option>
+      <option value='ドライブで聞きたい'>ドライブで聞きたい 🚗</option>
+      <option value='最近のおすすめ'>最近のおすすめ 👍</option>
     </Select >
     </>
   )
