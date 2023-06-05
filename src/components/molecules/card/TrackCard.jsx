@@ -1,19 +1,11 @@
 import { Box, Button, Card, CardFooter, Divider, Flex, Text } from "@chakra-ui/react"
-import { memo, useState } from "react"
+import { memo } from "react"
 import "../../../styles.css"
-import { HeratButton } from "../../atoms/button/HeartButton"
+import { HeartButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
-import { TrackImage } from './../../atoms/image/TrackImage';
+// import { TrackImage } from './../../atoms/image/TrackImage';
 
-export const TrackCard = memo(({ carouselItem }) => {
-
-  const [isFilled, setIsFilled] = useState(false);
-  const [count, setCount] = useState(0);
-
-  function handleClick() {
-    setIsFilled((prevIsFilled) => !prevIsFilled);
-    setCount((prevCount) => isFilled ? prevCount - 1 : prevCount + 1);
-  }
+export const TrackCard = memo(({ dat }) => {
 
   return (
     <Card
@@ -38,7 +30,7 @@ export const TrackCard = memo(({ carouselItem }) => {
             <Text fontSize="sm" >曲名</Text>
           </Box>
           <Box flex={1} textAlign="left" fontWeight="bold">
-            <Text>桜</Text>
+            <Text>{dat.title}</Text>
           </Box>
         </Flex>
         <Divider />
@@ -53,11 +45,11 @@ export const TrackCard = memo(({ carouselItem }) => {
       </Box>
       <Flex justifyContent="flex-end">
         <Box style={{ marginLeft: "auto" }} flex={1} m={3} mb={2}>
-          <GenreTag />
+          <GenreTag genre={dat.genre}/>
         </Box>
       </Flex>
       <Flex flex={1} justifyContent="flex-end" alignItems="center" >
-        <TrackImage src={carouselItem.src} boxSize={"220px"}/>
+        {/* <TrackImage src={carouselItem.src} boxSize={"220px"}/> */}
       </Flex>
       <CardFooter
         justify='space-between'
@@ -71,7 +63,7 @@ export const TrackCard = memo(({ carouselItem }) => {
         <Button colorScheme='telegram' flex='1' variant='outline' mr={2}>
           詳細
         </Button>
-        <HeratButton isFilled={isFilled} count={count} handleClick={handleClick} />
+        <HeartButton dat={dat}/>
       </CardFooter>
     </Card>
 
