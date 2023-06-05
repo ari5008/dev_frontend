@@ -43,15 +43,70 @@ export const useMutateTrack = () => {
 
   const updateTrackMutation = useMutation(
     async (track) => {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/track/${track.id}`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/updateTrack/${track.id}`, {
         title: track.title,
         artist_name: track.artist_name,
         jacket_image: track.jacket_image,
         genre: track.genre,
         comment: track.comment,
         likes: track.likes,
-        is_liked: track.is_liked,
         account_id: track.account_id,
+      })
+      return response;
+    },
+    {
+      onSuccess: (res, variables) => {
+        const previousAccount = queryClient.getQueryData(['tracks'])
+        if (previousAccount) {
+          queryClient.setQueryData(
+            ['tracks'],
+            previousAccount.id === variables.id ? res.data : previousAccount
+          )
+        }
+        navigate(`/account/tracks`)
+      },
+      onError: (err) => {
+        if (err.response.data.message) {
+          switchErrorHandling(err.response.data.message)
+        } else {
+          switchErrorHandling(err.response.data)
+        }
+      },
+    }
+  )
+
+  const incrementTrackLikesMutation = useMutation(
+    async (track) => {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/incrementTrackLikes/${track.id}`, {
+        likes: track.likes,
+      })
+      return response;
+    },
+    {
+      onSuccess: (res, variables) => {
+        const previousAccount = queryClient.getQueryData(['tracks'])
+        if (previousAccount) {
+          queryClient.setQueryData(
+            ['tracks'],
+            previousAccount.id === variables.id ? res.data : previousAccount
+          )
+        }
+        navigate(`/account/tracks`)
+      },
+      onError: (err) => {
+        if (err.response.data.message) {
+          switchErrorHandling(err.response.data.message)
+        } else {
+          switchErrorHandling(err.response.data)
+        }
+      },
+    }
+  )
+
+  const decrementTrackLikesMutation = useMutation(
+    async (track) => {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/decrementTrackLikes/${track.id}`, {
+        likes: track.likes,
       })
       return response;
     },
@@ -79,6 +134,8 @@ export const useMutateTrack = () => {
   return {
     createTrackMutation,
     updateTrackMutation,
+    incrementTrackLikesMutation,
+    decrementTrackLikesMutation,
     loading,
   }
 }
