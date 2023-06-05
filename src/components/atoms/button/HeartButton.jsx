@@ -13,8 +13,7 @@ export const HeartButton = memo(({ dat: trackData }) => {
   const [flag, setFlag] = useState(null);
   const { createLikeFlagMutation, addLikeFlag, addUnLikeFlag } = useMutateLikeFlag()
   const [count, setCount] = useState(trackData.likes)
-  const { updateTrackMutation } = useMutateTrack()
-
+  const { IncrementTrackLikesMutation, DecrementTrackLikesMutation } = useMutateTrack()
 
   async function initialize() {
     if (accountData?.id != 0 && trackData.id != 0) {
@@ -27,27 +26,32 @@ export const HeartButton = memo(({ dat: trackData }) => {
   }
 
   useEffect(() => {
-    if (!accountData || !trackData ) return;
+    if (!accountData || !trackData) return;
 
     initialize();
 
   }, [trackData.id, accountData?.id]);
 
+
+  useEffect(() => {
+    axios.get(`${import.meta.env.VITE_API_URL}/account/track/${trackData.id}`).then(res => {
+      setCount(res.data.likes);
+    });
+  }, [trackData.likes]);
+
+
   function handleClick() {
-    if (flag === true) {
-      addUnLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id })
-      setFlag(false)
-    } else {
-      addLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id })
+    if (flag === false) {
+      IncrementTrackLikesMutation.mutate({...trackData, likes: count})
+      addLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id, likes: count })
+      setCount(count + 1)
       setFlag(true)
+    } else {
+      DecrementTrackLikesMutation.mutate({...trackData, likes: count})
+      addUnLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id })
+      setCount(count - 1)
+      setFlag(false)
     }
-    console.log(flag)
-    const increment = !flag ? 1 : -1;
-    setCount(prevCount => {
-      const newCount = prevCount + increment
-      updateTrackMutation.mutate({ ...trackData, likes: newCount })
-      return newCount
-    })
   }
 
   return (
