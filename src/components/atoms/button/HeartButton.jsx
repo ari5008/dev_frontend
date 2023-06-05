@@ -13,7 +13,7 @@ export const HeartButton = memo(({ dat: trackData }) => {
   const [flag, setFlag] = useState(null);
   const { createLikeFlagMutation, addLikeFlag, addUnLikeFlag } = useMutateLikeFlag()
   const [count, setCount] = useState(trackData.likes)
-  const { IncrementTrackLikesMutation, DecrementTrackLikesMutation } = useMutateTrack()
+  const { incrementTrackLikesMutation, decrementTrackLikesMutation } = useMutateTrack()
 
   async function initialize() {
     if (accountData?.id != 0 && trackData.id != 0) {
@@ -42,12 +42,12 @@ export const HeartButton = memo(({ dat: trackData }) => {
 
   function handleClick() {
     if (flag === false) {
-      IncrementTrackLikesMutation.mutate({...trackData, likes: count})
+      incrementTrackLikesMutation.mutate({...trackData, likes: count})
       addLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id, likes: count })
       setCount(count + 1)
       setFlag(true)
     } else {
-      DecrementTrackLikesMutation.mutate({...trackData, likes: count})
+      decrementTrackLikesMutation.mutate({...trackData, likes: count})
       addUnLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id })
       setCount(count - 1)
       setFlag(false)
