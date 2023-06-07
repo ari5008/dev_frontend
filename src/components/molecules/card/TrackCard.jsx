@@ -3,7 +3,7 @@ import { memo } from "react"
 import "../../../styles.css"
 import { HeartButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
-// import { TrackImage } from './../../atoms/image/TrackImage';
+import { TrackImage } from './../../atoms/image/TrackImage';
 
 export const TrackCard = memo(({ dat }) => {
 
@@ -39,7 +39,7 @@ export const TrackCard = memo(({ dat }) => {
             <Text fontSize="sm" >アーティスト名</Text>
           </Box>
           <Box flex={1} textAlign="left" fontWeight="bold">
-            <Text>作詞/作曲 コブクロ</Text>
+            <Text>{dat.artist_name}</Text>
           </Box>
         </Flex>
       </Box>
@@ -49,7 +49,7 @@ export const TrackCard = memo(({ dat }) => {
         </Box>
       </Flex>
       <Flex flex={1} justifyContent="flex-end" alignItems="center" >
-        {/* <TrackImage src={carouselItem.src} boxSize={"220px"}/> */}
+        <TrackImage src={dat.jacket_image} boxSize={"220px"}/>
       </Flex>
       <CardFooter
         justify='space-between'
