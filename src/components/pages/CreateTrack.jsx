@@ -1,23 +1,16 @@
 import { ChatIcon, CheckIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Text, Textarea, useDisclosure } from "@chakra-ui/react";
-import { memo, useEffect, useState } from "react";
+import { Box, Button, Flex, Heading, Text, Textarea } from "@chakra-ui/react";
+import { memo, useEffect } from "react";
 import { TrackSelect } from "../atoms/select/TrackSelect";
 import { TrackImage } from "../atoms/image/TrackImage";
 import { useMutateTrack } from "../../hooks/useMutateTrack";
 import { trackStore } from "../../store/trackStore";
-import { SearchModal } from './../molecules/modal/SearchModal';
+import { Link } from "react-router-dom";
+import { selectedDataStore } from "../../store/selectedDataStore";
 
 export const CreateTrack = memo(() => {
 
-  const [selectedData, setSelectedData] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
+  const {editedSelectedData} = selectedDataStore()
   const { createTrackMutation, loading } = useMutateTrack()
   const { editedTrack } = trackStore()
   const updateTrack = trackStore((state) => state.updateEditedTrack)
@@ -26,9 +19,9 @@ export const CreateTrack = memo(() => {
     e.preventDefault()
     if (editedTrack.id === 0) {
       createTrackMutation.mutate({
-        title: selectedData.title,
-        artist_name: selectedData.artist_name,
-        jacket_image: selectedData.jacket_image,
+        title: editedSelectedData.name,
+        artist_name: editedSelectedData.artists,
+        jacket_image: editedSelectedData.image_url,
         genre: editedTrack.genre,
         comment: editedTrack.comment,
         likes: editedTrack.likes,
@@ -37,7 +30,7 @@ export const CreateTrack = memo(() => {
   }
 
   useEffect(() => {
-    console.log(editedTrack)
+    // console.log(editedTrack)
   }, [editedTrack])
 
   return (
@@ -61,16 +54,14 @@ export const CreateTrack = memo(() => {
                 mr="110px"
                 pl={2}
               >
-                {selectedData.title || ""}
+                {editedSelectedData.name || ""}
               </Text>
             </Box>
 
 
-            <Button colorScheme='blackAlpha' ml={2} size={{ base: "lg", md: "md" }} onClick={onOpen}>
+            <Button as={Link} to="search" colorScheme='blackAlpha' ml={2} mr={10} size={{ base: "lg", md: "md" }}>
               曲を選択
             </Button>
-            <SearchModal isOpen={isOpen} onClose={onClose} handleOverlayClick={handleOverlayClick} setSelectedData={setSelectedData} />
-
 
           </Flex>
           <Flex
@@ -83,12 +74,12 @@ export const CreateTrack = memo(() => {
           <Box>
             <TrackImage
               onChange={(e) => updateTrack({ ...editedTrack, jacket_image: e.target.value })}
-              src={selectedData.jacket_image || editedTrack.jacket_image}
+              src={editedSelectedData.image_url || editedTrack.jacket_image}
               boxSize={"240px"}
             />
             <Flex flexDirection="column" justify="center" align="center" pb={5} pt={3}>
               <Text fontSize="13px">アーティスト名</Text>
-              <Text color="gray.600" fontSize="xl" textShadow="1px 0px 1px gray" >{selectedData.artist_name || "????"}</Text>
+              <Text color="gray.600" fontSize="xl" textShadow="1px 0px 1px gray" >{editedSelectedData.artists || "????"}</Text>
             </Flex>
           </Box>
           <Flex align="center" justifyContent="center" w="95%" m="auto">
