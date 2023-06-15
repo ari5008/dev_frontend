@@ -13,6 +13,8 @@ import { ViewTrack } from './components/pages/ViewTrack';
 import { CreateTrack } from './components/pages/CreateTrack';
 import { Account } from './components/pages/Account';
 import { ErrorPage } from './components/pages/ErrorPage';
+import { Example } from './components/pages/Example';
+import { SearchTrack } from './components/pages/SearchTrack';
 
 function App() {
 
@@ -35,10 +37,12 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/example" element={<Example />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/track" element={<ViewTrack />} />
-              <Route path="/createTrack" element={<CreateTrack />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/account/tracks" element={<ViewTrack />} />
+              <Route path="/account/createTrack" element={<CreateTrack />} />
+              <Route path="/account/createTrack/search" element={<SearchTrack />} />
               <Route path="/*" element={<ErrorPage />} />
             </Routes>
           </Layout>
