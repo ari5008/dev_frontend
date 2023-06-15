@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useError } from './useError';
 import axios from 'axios';
 import { useMessage } from './useMessage';
 import { useNavigate } from 'react-router-dom';
 import { trackStore } from './../store/trackStore';
-import { useState } from 'react';
+import { trackResultStore } from '../store/trackResultStore';
+import { selectedDataStore } from '../store/selectedDataStore';
 
 export const useMutateTrack = () => {
 
@@ -14,6 +16,8 @@ export const useMutateTrack = () => {
   const { showMessage } = useMessage()
   const [loading, setLoading] = useState(false);
   const resetEditedTrack = trackStore((state) => state.resetEditedTrack)
+  const resetEditedResultTrack = trackResultStore((state) => state.resetEditedResultTrack)
+  const resetEditedSelectedData = selectedDataStore((state) => state.resetEditedSelectedData)
 
   const createTrackMutation = useMutation(
     async (track) => {
@@ -23,11 +27,12 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res) => {
-        // createLikeFlagMutation{}
         queryClient.setQueryData(["tracks"], (oldTracks = []) => [...oldTracks, res.data])
         navigate('/account/tracks')
         showMessage({ title: "登録しました", status: "success" })
         resetEditedTrack()
+        resetEditedResultTrack()
+        resetEditedSelectedData()
         setLoading(false);
       },
       onError: (err) => {
