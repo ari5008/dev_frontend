@@ -17,20 +17,42 @@ export const SearchTrack = memo(() => {
   const updateSelectedData = selectedDataStore((state) => state.updateEditedSelectedData)
   const { editedResultTrack, updateEditedResultTrack } = trackResultStore()
 
+  const customStyles = {
+    rows: {
+      style: {
+        minHeight: '70px',
+      },
+    },
+  };
+
   const columns = [
     {
       name: 'ジャケット',
-      selector: row => <Image src={row.image_url} borderRadius="50%" boxSize={"50px"} />,
+      selector: row => <Image src={row.image_url} borderRadius="50%" boxSize={"65px"} />,
+      style: {
+        minWidth: '25%',
+        maxWidth: '25%',
+      },
+      width: '25%',
     },
     {
       name: '曲名',
       selector: row => row.name,
       sortable: true,
+      style: {
+        minWidth: '40%',
+        maxWidth: '40%'
+      },
+      width: '40%',
     },
     {
       name: 'アーティスト名',
       selector: row => row.artists,
       sortable: true,
+      style: {
+        minWidth: '40%',
+      },
+      width: '40%',
     },
   ];
 
@@ -93,7 +115,7 @@ export const SearchTrack = memo(() => {
           </Flex>
         ) : (
           <Box py={5}>
-            <Box w="90%" margin="auto" >
+            <Box w="90%" margin="auto" px={0}>
               <DataTable
                 columns={columns}
                 data={editedResultTrack}
@@ -101,6 +123,7 @@ export const SearchTrack = memo(() => {
                 pointerOnHover
                 onRowClicked={onRowClicked}
                 noDataComponent={<NoDataComponent />}
+                customStyles={customStyles}
               />
             </Box>
           </Box>
