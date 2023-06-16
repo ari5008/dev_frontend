@@ -4,12 +4,18 @@ import { useMutation } from "@tanstack/react-query"
 import { useError } from "./useError"
 import axios from "axios"
 import { useState } from "react"
+import { trackStore } from "../store/trackStore"
+import { trackResultStore } from "../store/trackResultStore"
+import { selectedDataStore } from "../store/selectedDataStore"
 
 export const useMutateAuth = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const { showMessage } = useMessage()
   const { switchErrorHandling } = useError()
+  const resetEditedTrack = trackStore((state) => state.resetEditedTrack)
+  const resetEditedResultTrack = trackResultStore((state) => state.resetEditedResultTrack)
+  const resetEditedSelectedData = selectedDataStore((state) => state.resetEditedSelectedData)
 
   const signupMutation = useMutation(
     async (user) => {
@@ -43,7 +49,7 @@ export const useMutateAuth = () => {
     {
       onSuccess: () => {
         const expiryDate = new Date();
-        expiryDate.setMinutes(expiryDate.getMinutes() + 1); 
+        expiryDate.setMinutes(expiryDate.getMinutes() + 60); 
         localStorage.setItem('expiry', expiryDate.getTime().toString());
         navigate('/')
         showMessage({ title: "ログインしました", status: "success" })
@@ -66,6 +72,9 @@ export const useMutateAuth = () => {
       onSuccess: () => {
         localStorage.removeItem('expiry');
         navigate('/login')
+        resetEditedTrack()
+        resetEditedResultTrack()
+        resetEditedSelectedData()
         showMessage({ title: "ログアウトしました", status: "success" })
       },
       onError: (err) => {
