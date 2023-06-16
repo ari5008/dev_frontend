@@ -8,16 +8,6 @@ export const TrackTabPanel = memo(() => {
 
   const { data, isLoading } = useQueryTracks()
 
-  // const carouselItems = [
-  //   { src: "https://source.unsplash.com/SAS0lq2QGLs", alt: "text1" },
-  //   { src: "https://source.unsplash.com/tJZr5F72eFQ", alt: "text2" },
-  //   { src: "https://source.unsplash.com/8Hd1IVrDpEc", alt: "text3" },
-  //   { src: "https://source.unsplash.com/8Hd1IVrDpEc", alt: "text3" },
-  //   { src: "https://source.unsplash.com/8Hd1IVrDpEc", alt: "text3" },
-  //   { src: "https://source.unsplash.com/8Hd1IVrDpEc", alt: "text3" },
-  //   { src: "https://source.unsplash.com/8Hd1IVrDpEc", alt: "text3" },
-  // ];
-
   return (
     <>
       <TabPanel>
@@ -26,8 +16,8 @@ export const TrackTabPanel = memo(() => {
             <CustomSpinner />
           </Flex>
         ) : (
-          <Wrap spacing={3} p={{ base: 4, md: 10 }} justify="center">
-            <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={10}>
+          <Wrap  pt={{ base: 4, md: 10 }} justify="center">
+            <Grid templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }} gap="50px">
               {data?.map((dat, index) => (
                 <Box key={index} minWidth={{ base: "auto", md: "250px" }}>
                   <TrackCard dat={dat} />
