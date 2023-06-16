@@ -8,10 +8,12 @@ export const TrackSelect = memo(({ editedTrack, updateTrack }) => {
         width={{ base: "64%", md: "25%" }}
         onChange={(e) => updateTrack({...editedTrack, genre: e.target.value})}
         value={editedTrack.genre}
+        placeholder='選択してください'
       >
       <option value='ポップ'>ポップ 🎶</option>
       <option value='可愛い'>可愛い 💖</option>
       <option value='ロック'>ロック 🎸</option>
+      <option value='ヒップホップ'>ヒップホップ 🎤</option>
       <option value='レトロ'>レトロ 💿</option>
       <option value='癒されたい'>癒されたい ☘️</option>
       <option value='テンションが上がる'>テンションが上がる 🔥</option>

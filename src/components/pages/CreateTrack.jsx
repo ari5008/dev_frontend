@@ -51,18 +51,15 @@ export const CreateTrack = memo(() => {
                 fontSize="xl"
                 color="gray.600"
                 textShadow="1px 0px 1px gray"
-                mr="110px"
+                pt={2}
                 pl={2}
               >
                 {editedSelectedData.name || ""}
               </Text>
             </Box>
-
-
-            <Button as={Link} to="search" colorScheme='blackAlpha' ml={2} mr={10} size={{ base: "lg", md: "md" }}>
+            <Button as={Link} to="search" colorScheme='blackAlpha' ml={{ base: "20px", md: "110px" }} mr={{ base: "20px", md: "40px" }} size={{ base: "lg", md: "md" }}>
               曲を選択
             </Button>
-
           </Flex>
           <Flex
             flexDirection="column"
@@ -77,9 +74,9 @@ export const CreateTrack = memo(() => {
               src={editedSelectedData.image_url || editedTrack.jacket_image}
               boxSize={"240px"}
             />
-            <Flex flexDirection="column" justify="center" align="center" pb={5} pt={3}>
+            <Flex flexDirection="column" justify="center" align="center" pb={8} pt={5} w="90%" margin="auto">
               <Text fontSize="13px">アーティスト名</Text>
-              <Text color="gray.600" fontSize="xl" textShadow="1px 0px 1px gray" >{editedSelectedData.artists || "????"}</Text>
+              <Text color="gray.600" fontSize="xl" textShadow="1px 0px 1px gray" pt={2}>{editedSelectedData.artists || "????"}</Text>
             </Flex>
           </Box>
           <Flex align="center" justifyContent="center" w="95%" m="auto">
