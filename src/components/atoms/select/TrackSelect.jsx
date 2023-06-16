@@ -15,6 +15,7 @@ export const TrackSelect = memo(({ editedTrack, updateTrack }) => {
       <option value='ロック'>ロック 🎸</option>
       <option value='ヒップホップ'>ヒップホップ 🎤</option>
       <option value='レトロ'>レトロ 💿</option>
+      <option value='アンニュイ'>アンニュイ 🫠</option>
       <option value='癒されたい'>癒されたい ☘️</option>
       <option value='テンションが上がる'>テンションが上がる 🔥</option>
       <option value='無心で聞きたい'>無心で聞きたい 😑</option>
