@@ -13,8 +13,8 @@ import { ViewTrack } from './components/pages/ViewTrack';
 import { CreateTrack } from './components/pages/CreateTrack';
 import { Account } from './components/pages/Account';
 import { ErrorPage } from './components/pages/ErrorPage';
-import { Example } from './components/pages/Example';
 import { SearchTrack } from './components/pages/SearchTrack';
+import { HomeTrack } from './components/pages/HomeTrack';
 
 function App() {
 
@@ -37,8 +37,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/example" element={<Example />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/tracks" element={<HomeTrack />} />
               <Route path="/account" element={<Account />} />
               <Route path="/account/tracks" element={<ViewTrack />} />
               <Route path="/account/createTrack" element={<CreateTrack />} />
