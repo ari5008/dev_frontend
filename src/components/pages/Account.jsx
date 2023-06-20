@@ -1,14 +1,19 @@
-import { Box, Button, Flex, Grid, GridItem, Heading, Input, Spinner, Tag, Text, Textarea } from "@chakra-ui/react";
-import { memo, useEffect } from "react";
+import { Box, Button, Flex, Grid, GridItem, Heading, Input, Tag, Textarea, Wrap } from "@chakra-ui/react";
+import { memo, useState } from "react";
 import { useQueryAccount } from "../../hooks/useQueryAccount";
 import { accountStore } from "../../store/accountStore";
 import { useMutateAccount } from './../../hooks/useMutateAccount';
 import { AccountAvatar } from "../atoms/avatar/AccountAvatar";
 import { CheckIcon } from "@chakra-ui/icons";
+import { CustomSpinner } from "../atoms/spinner/CustomSpinner";
+import { TrackCard } from "../molecules/card/TrackCard";
+import { useTracksByAccountId } from "../../hooks/useQueryTrackByAccountId";
 
 export const Account = memo(() => {
 
-  const { isLoading } = useQueryAccount()
+  const [flag] = useState(true)
+  const { data: accountData, isLoading } = useQueryAccount()
+  const { data, isLoading: trackLoading } = useTracksByAccountId(accountData?.id);
   const { editedAccount } = accountStore()
   const updateAccount = accountStore((state) => state.updateEditedAccount)
   const { updateAccountMutation, loading } = useMutateAccount()
@@ -18,30 +23,19 @@ export const Account = memo(() => {
     updateAccountMutation.mutate(editedAccount)
   }
 
-  useEffect(() => {
-    // console.log(editedAccount)
-  }, [editedAccount])
-
   return (
     <>
       {isLoading ? (
         <Flex flexDirection='column' alignItems='center' justifyContent='center' h='90vh'>
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='blue.500'
-            style={{ width: '5rem', height: '5rem' }}
-            mb={2}
-          />
-          <Text fontSize="20px">...Loading</Text>
+          <CustomSpinner />
         </Flex>
       ) : (
         <Flex
           mt="2.5rem"
-          h="80vh"
+          mb={8}
           color='black'
           flexDirection='column'
+
         >
           <Box h={{ base: '380px', md: '330px' }} bg='white' borderTopRadius={10}>
             <Heading textAlign='center' fontSize="25px" py={7}>アカウント画面</Heading>
@@ -53,10 +47,11 @@ export const Account = memo(() => {
                 <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount} />
                 <Grid templateRows='repeat(2, auto)' gap={2} >
                   <GridItem rowSpan={1} colSpan={2} >
-                    <Tag variant='outline' colorScheme='black'>ユーザー名</Tag>
+                    <Tag variant='outline' colorScheme='black' >ユーザー名</Tag>
                   </GridItem>
                   <GridItem colSpan={2} >
                     <Input
+                      size={{ base: "lg", md: "md" }}
                       name="user_name"
                       placeholder='(20文字以内)'
                       variant='outline'
@@ -78,6 +73,7 @@ export const Account = memo(() => {
                 <Grid templateColumns={{ base: "1fr", md: "1fr auto" }} alignItems="center">
                   <GridItem>
                     <Textarea
+                      size={{ base: "lg", md: "md" }}
                       name="introduction"
                       placeholder="(100文字以内)"
                       resize="none"
@@ -93,9 +89,8 @@ export const Account = memo(() => {
                   </GridItem>
                   <GridItem alignSelf="center" justifySelf="center">
                     <Button
+                      size={{ base: "lg", md: "md" }}
                       colorScheme="teal"
-                      variant="outline"
-                      size="md"
                       type="submit"
                       mr="50px"
                       mt={{ base: "0px", md: "35px" }}
@@ -110,9 +105,25 @@ export const Account = memo(() => {
               </Grid>
             </form>
           </Box>
-          
-          <Box flex='1' bg='gray.200' borderBottomRadius={10}>
-            <Text></Text>
+          <Box flex='1' bg='gray.200' borderBottomRadius={10} py={7}>
+            <Heading textAlign="center" color="blackAlpha.600" size="xl">過去の選曲</Heading>
+            <Wrap pt={{ base: 4, md: 10 }} justify="center">
+              <Grid templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }} gap="50px">
+                {trackLoading ? (
+                  <Flex flexDirection='column' alignItems='center' justifyContent='center' h='30vh'>
+                    <CustomSpinner />
+                  </Flex>
+                ) : (
+                  <>
+                    {data?.map((dat, index) => (
+                      <Box key={index} minWidth={{ base: "auto", md: "250px" }}>
+                        <TrackCard dat={dat} flag={flag} />
+                      </Box>
+                    ))}
+                  </>
+                )}
+              </Grid>
+            </Wrap>
           </Box>
         </Flex >
       )}
