@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 export const useQueryTracks = () => {
   const { switchErrorHandling } = useError()
   const getTracks = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/account/tracks`,
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/tracks`,
       { withCredentials: true }
     )
     return data
