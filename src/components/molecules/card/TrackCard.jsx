@@ -1,16 +1,26 @@
-import { Box, Button, Card, CardFooter, Divider, Flex, Text } from "@chakra-ui/react"
+import { Box, Button, Card, CardFooter, Divider, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react"
 import { memo } from "react"
 import "../../../styles.css"
 import { HeartButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
 import { TrackImage } from './../../atoms/image/TrackImage';
+import { DeleteIcon } from "@chakra-ui/icons"
+import { DeleteModal } from "../modal/DeleteModal"
 
-export const TrackCard = memo(({ dat }) => {
+export const TrackCard = memo(({ dat, flag }) => {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+  const expiry = localStorage.getItem('expiry');
 
   return (
     <Card
       w={{ base: "350px", lg: "340px", xl: "320px" }}
-      h={{ base: "500px", xl: "470px" }}
+      h={{ base: "500px", xl: "485px" }}
       bg="gray.100"
       borderRadius="10px"
       shadow="lg"
@@ -64,10 +74,20 @@ export const TrackCard = memo(({ dat }) => {
           )}
         </Flex>
       </Box>
-      <Flex justifyContent="flex-end">
-        <Box style={{ marginLeft: "auto" }} flex={1} m={3} mb={2}>
+      <Flex justifyContent="space-between">
+        <Box m={3} mb={2}>
           <GenreTag genre={dat.genre} />
         </Box>
+
+        <Box m={3} mb={2} fontSize="18px">
+          {flag && (
+            <Button onClick={onOpen}>
+              <Icon as={DeleteIcon} />
+            </Button>
+          )}
+        </Box>
+        <DeleteModal isOpen={isOpen} onClose={onClose} handleOverlayClick={handleOverlayClick} dat={dat}/>
+        
       </Flex>
       <Flex flex={1} justifyContent="flex-end" alignItems="center" >
         <TrackImage src={dat.jacket_image} boxSize={"220px"} />
@@ -84,7 +104,9 @@ export const TrackCard = memo(({ dat }) => {
         <Button colorScheme='telegram' flex='1' variant='outline' mr={2}>
           詳細
         </Button>
-        <HeartButton dat={dat} />
+        {(expiry && new Date().getTime() < parseInt(expiry)) ? (
+          <HeartButton dat={dat} />
+        ) : null}
       </CardFooter>
     </Card>
 
