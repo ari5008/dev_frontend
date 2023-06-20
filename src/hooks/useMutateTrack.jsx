@@ -28,6 +28,9 @@ export const useMutateTrack = () => {
     {
       onSuccess: (res) => {
         queryClient.setQueryData(["tracks"], (oldTracks = []) => [...oldTracks, res.data])
+        queryClient.setQueryData(['tracks', 'AccountId', res.data.account_id], (oldTracks = []) => {
+          return [...oldTracks, res.data];
+        });
         navigate('/account/tracks')
         showMessage({ title: "登録しました", status: "success" })
         resetEditedTrack()
@@ -46,29 +49,30 @@ export const useMutateTrack = () => {
     }
   )
 
-  const updateTrackMutation = useMutation(
+  const deleteTrackMutation = useMutation(
     async (track) => {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/updateTrack/${track.id}`, {
-        title: track.title,
-        artist_name: track.artist_name,
-        jacket_image: track.jacket_image,
-        genre: track.genre,
-        comment: track.comment,
-        likes: track.likes,
-        account_id: track.account_id,
-      })
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/account/deleteTrack/${track.id}`)
       return response;
     },
     {
-      onSuccess: (res, variables) => {
-        const previousAccount = queryClient.getQueryData(['tracks'])
-        if (previousAccount) {
+      onSuccess: (_, variables) => {
+        const previousTrack = queryClient.getQueryData(['tracks'])
+        const previousTrackByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id
+      ])
+        if (previousTrack) {
           queryClient.setQueryData(
             ['tracks'],
-            previousAccount.id === variables.id ? res.data : previousAccount
+            previousTrack.filter((track) => track.id !== variables.id)
           )
         }
-        navigate(`/account/tracks`)
+        if (previousTrackByAccountId) {
+          queryClient.setQueryData(
+            ["tracks", "AccountId", variables.account_id
+          ],
+            previousTrackByAccountId.filter((track) => track.id !== variables.id)
+          )
+        }
+        navigate('/account')
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -89,14 +93,13 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousAccount = queryClient.getQueryData(['tracks'])
-        if (previousAccount) {
+        const previousTrack = queryClient.getQueryData(['tracks'])
+        if (previousTrack) {
           queryClient.setQueryData(
             ['tracks'],
-            previousAccount.id === variables.id ? res.data : previousAccount
+            previousTrack.id === variables.id ? res.data : previousTrack
           )
         }
-        navigate(`/account/tracks`)
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -117,14 +120,13 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousAccount = queryClient.getQueryData(['tracks'])
-        if (previousAccount) {
+        const previousTrack = queryClient.getQueryData(['tracks'])
+        if (previousTrack) {
           queryClient.setQueryData(
             ['tracks'],
-            previousAccount.id === variables.id ? res.data : previousAccount
+            previousTrack.id === variables.id ? res.data : previousTrack
           )
         }
-        navigate(`/account/tracks`)
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -138,7 +140,7 @@ export const useMutateTrack = () => {
 
   return {
     createTrackMutation,
-    updateTrackMutation,
+    deleteTrackMutation,
     incrementTrackLikesMutation,
     decrementTrackLikesMutation,
     loading,
