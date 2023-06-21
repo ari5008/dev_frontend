@@ -74,7 +74,6 @@ export const SearchTrack = memo(() => {
         withCredentials: true,
         params: params,
       }).then(res => {
-        console.log(res.data)
         setLoading(false);
         updateEditedResultTrack(res.data);
       });
