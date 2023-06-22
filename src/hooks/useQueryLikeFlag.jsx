@@ -2,17 +2,17 @@ import axios from 'axios';
 import { useError } from './useError';
 import { useQuery } from '@tanstack/react-query';
 
-export const useQueryTracks = (sortOption) => {
+export const useQueryLikeFlag = (trackId, accountId) => {
   const { switchErrorHandling } = useError();
-  const getTracks = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/tracksBy${sortOption}`,
+  const getLikeFlag = async () => {
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/account/getLikeFlag/${trackId}`,
       { withCredentials: true }
     );
     return data;
   };
   return useQuery({
-    queryKey: ["tracks", sortOption],
-    queryFn: getTracks,
+    queryKey: ["likeFlag", trackId, accountId],
+    queryFn: getLikeFlag,
     staleTime: Infinity,
     onError: (err) => {
       if (err.response.data.message) {

@@ -27,7 +27,17 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res) => {
-        queryClient.setQueryData(["tracks"], (oldTracks = []) => [...oldTracks, res.data])
+        queryClient.setQueryData(["tracks", "Likes"], (oldTracks = []) => {
+          const newTracks = [...oldTracks];
+          newTracks.sort((a, b) => b.likes - a.likes);
+          return [...newTracks, res.data];
+        });
+        queryClient.setQueryData(["tracks", "Asc"], (oldTracks = []) => {
+          return [...oldTracks, res.data];
+        });
+        queryClient.setQueryData(["tracks", "Desc"], (oldTracks = []) => {
+          return [res.data, ...oldTracks];
+        });
         queryClient.setQueryData(['tracks', 'AccountId', res.data.account_id], (oldTracks = []) => {
           return [...oldTracks, res.data];
         });
@@ -56,19 +66,31 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (_, variables) => {
-        const previousTrack = queryClient.getQueryData(['tracks'])
+        const previousTracks = [
+          queryClient.getQueryData(["tracks", "Likes"]),
+          queryClient.getQueryData(["tracks", "Asc"]),
+          queryClient.getQueryData(["tracks", "Desc"]),
+        ];
         const previousTrackByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id
-      ])
-        if (previousTrack) {
+        ])
+        if (previousTracks !== null && previousTracks !== undefined) {
           queryClient.setQueryData(
-            ['tracks'],
-            previousTrack.filter((track) => track.id !== variables.id)
-          )
+            ['tracks', 'Likes'],
+            previousTracks[0].filter((track) => track.id !== variables.id)
+          );
+          queryClient.setQueryData(
+            ['tracks', 'Asc'],
+            previousTracks[1].filter((track) => track.id !== variables.id)
+          );
+          queryClient.setQueryData(
+            ['tracks', 'Desc'],
+            previousTracks[2].filter((track) => track.id !== variables.id)
+          );
         }
         if (previousTrackByAccountId) {
           queryClient.setQueryData(
             ["tracks", "AccountId", variables.account_id
-          ],
+            ],
             previousTrackByAccountId.filter((track) => track.id !== variables.id)
           )
         }
@@ -93,11 +115,42 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousTrack = queryClient.getQueryData(['tracks'])
-        if (previousTrack) {
+        const likesData = queryClient.getQueryData(["tracks", "Likes"]);
+        const ascData = queryClient.getQueryData(["tracks", "Asc"]);
+        const descData = queryClient.getQueryData(["tracks", "Desc"]);
+        const previousTracks = [
+          likesData !== null && likesData !== undefined ? likesData : [],
+          ascData !== null && ascData !== undefined ? ascData : [],
+          descData !== null && descData !== undefined ? descData : [],
+        ];
+        const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
+
+        if (previousTracks) {
           queryClient.setQueryData(
-            ['tracks'],
-            previousTrack.id === variables.id ? res.data : previousTrack
+            ['tracks', 'Likes'],
+            previousTracks[0].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Asc'],
+            previousTracks[1].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Desc'],
+            previousTracks[2].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+        }
+        if (previousTracksByAccountId) {
+          queryClient.setQueryData(
+            ["tracks", "AccountId", variables.account_id],
+            previousTracksByAccountId.map((previousTrackByAccountId) => (
+              previousTrackByAccountId.id === variables.id ? res.data : previousTrackByAccountId
+            ))
           )
         }
       },
@@ -120,11 +173,42 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousTrack = queryClient.getQueryData(['tracks'])
-        if (previousTrack) {
+        const likesData = queryClient.getQueryData(["tracks", "Likes"]);
+        const ascData = queryClient.getQueryData(["tracks", "Asc"]);
+        const descData = queryClient.getQueryData(["tracks", "Desc"]);
+        const previousTracks = [
+          likesData !== null && likesData !== undefined ? likesData : [],
+          ascData !== null && ascData !== undefined ? ascData : [],
+          descData !== null && descData !== undefined ? descData : [],
+        ];
+        const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
+
+        if (previousTracks) {
           queryClient.setQueryData(
-            ['tracks'],
-            previousTrack.id === variables.id ? res.data : previousTrack
+            ['tracks', 'Likes'],
+            previousTracks[0].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Asc'],
+            previousTracks[1].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Desc'],
+            previousTracks[2].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+        }
+        if (previousTracksByAccountId) {
+          queryClient.setQueryData(
+            ["tracks", "AccountId", variables.account_id],
+            previousTracksByAccountId.map((previousTrackByAccountId) => (
+              previousTrackByAccountId.id === variables.id ? res.data : previousTrackByAccountId
+            ))
           )
         }
       },
