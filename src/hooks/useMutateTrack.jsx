@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { trackStore } from './../store/trackStore';
 import { trackResultStore } from '../store/trackResultStore';
 import { selectedDataStore } from '../store/selectedDataStore';
+import { useGenreRank } from './useGenreRank';
 
 export const useMutateTrack = () => {
 
@@ -41,6 +42,11 @@ export const useMutateTrack = () => {
         queryClient.setQueryData(['tracks', 'AccountId', res.data.account_id], (oldTracks = []) => {
           return [...oldTracks, res.data];
         });
+        queryClient.setQueryData(["tracks", "Genre"], (oldTracks = []) => {
+          const tracks = [...oldTracks, res.data];
+          const newTracks = tracks.sort((a, b) => useGenreRank(a.genre) - useGenreRank(b.genre));
+          return [...newTracks];
+        });
         navigate('/account/tracks')
         showMessage({ title: "登録しました", status: "success" })
         resetEditedTrack()
@@ -70,6 +76,7 @@ export const useMutateTrack = () => {
           queryClient.getQueryData(["tracks", "Likes"]),
           queryClient.getQueryData(["tracks", "Asc"]),
           queryClient.getQueryData(["tracks", "Desc"]),
+          queryClient.getQueryData(["tracks", "Genre"]),
         ];
         const previousTrackByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id
         ])
@@ -85,6 +92,10 @@ export const useMutateTrack = () => {
           queryClient.setQueryData(
             ['tracks', 'Desc'],
             previousTracks[2].filter((track) => track.id !== variables.id)
+          );
+          queryClient.setQueryData(
+            ['tracks', 'Genre'],
+            previousTracks[3].filter((track) => track.id !== variables.id)
           );
         }
         if (previousTrackByAccountId) {
@@ -118,10 +129,12 @@ export const useMutateTrack = () => {
         const likesData = queryClient.getQueryData(["tracks", "Likes"]);
         const ascData = queryClient.getQueryData(["tracks", "Asc"]);
         const descData = queryClient.getQueryData(["tracks", "Desc"]);
+        const genreData = queryClient.getQueryData(["tracks", "Genre"]);
         const previousTracks = [
           likesData !== null && likesData !== undefined ? likesData : [],
           ascData !== null && ascData !== undefined ? ascData : [],
           descData !== null && descData !== undefined ? descData : [],
+          genreData !== null && genreData !== undefined ? genreData : [],
         ];
         const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
 
@@ -141,6 +154,12 @@ export const useMutateTrack = () => {
           queryClient.setQueryData(
             ['tracks', 'Desc'],
             previousTracks[2].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Genre'],
+            previousTracks[3].map((previousTrack) => (
               previousTrack.id === variables.id ? res.data : previousTrack
             ))
           )
@@ -176,10 +195,12 @@ export const useMutateTrack = () => {
         const likesData = queryClient.getQueryData(["tracks", "Likes"]);
         const ascData = queryClient.getQueryData(["tracks", "Asc"]);
         const descData = queryClient.getQueryData(["tracks", "Desc"]);
+        const genreData = queryClient.getQueryData(["tracks", "Genre"]);
         const previousTracks = [
           likesData !== null && likesData !== undefined ? likesData : [],
           ascData !== null && ascData !== undefined ? ascData : [],
           descData !== null && descData !== undefined ? descData : [],
+          genreData !== null && genreData !== undefined ? genreData : [],
         ];
         const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
 
@@ -199,6 +220,12 @@ export const useMutateTrack = () => {
           queryClient.setQueryData(
             ['tracks', 'Desc'],
             previousTracks[2].map((previousTrack) => (
+              previousTrack.id === variables.id ? res.data : previousTrack
+            ))
+          )
+          queryClient.setQueryData(
+            ['tracks', 'Genre'],
+            previousTracks[3].map((previousTrack) => (
               previousTrack.id === variables.id ? res.data : previousTrack
             ))
           )
