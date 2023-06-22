@@ -1,10 +1,12 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { memo, useRef } from "react";
 import { useMutateTrack } from "../../../hooks/useMutateTrack";
+import { useMutateLikeFlag } from "../../../hooks/useMutateLikeFlag";
 
 export const DeleteModal = memo(({isOpen, onClose, handleOverlayClick, dat}) => {
 
   const { deleteTrackMutation } = useMutateTrack()
+  const {deleteLikeFlagMutation} = useMutateLikeFlag()
   const cancelRef = useRef()
   return (
     <>
@@ -46,6 +48,7 @@ export const DeleteModal = memo(({isOpen, onClose, handleOverlayClick, dat}) => 
                 ml={3}
                 onClick={() => {
                   deleteTrackMutation.mutate(dat)
+                  deleteLikeFlagMutation.mutate(dat.id)
                   onClose()
                 }}
               >
