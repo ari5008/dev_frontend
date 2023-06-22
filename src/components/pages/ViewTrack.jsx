@@ -3,12 +3,13 @@ import { Box, Button, Tab, TabIndicator, TabList, TabPanels, Tabs, Text } from "
 import { memo } from "react";
 import backgroundImage from "../../images/trackBackground.jpg"
 import { Link } from "react-router-dom";
-import { TrackTabPanel } from "../molecules/tabs/TrackTabPanel";
-import { useQueryTracks } from "../../hooks/useQueryTrack";
+import { TrackTabPanelByLikes } from "../molecules/tabs/TrackTabPanelByLikes";
+import { TrackTabPanelByAsc } from "../molecules/tabs/TrackTabPanelByAsc";
+import { TrackTabPanelByDesc } from "../molecules/tabs/TrackTabPanelByDesc";
+import { TrackTabPanelByGenre } from './../molecules/tabs/TrackTabPanelByGenre';
 
 export const ViewTrack = memo(() => {
 
-  // const { data, isLoading } = useQueryTracks()
   const expiry = localStorage.getItem('expiry');
 
   return (
@@ -32,7 +33,8 @@ export const ViewTrack = memo(() => {
           <TabList p={2}>
             <Tab bg="gray.400" roundedLeft="md">人気順</Tab>
             <Tab bg="gray.400" >新しい順</Tab>
-            <Tab bg="gray.400" roundedRight="md">古い順</Tab>
+            <Tab bg="gray.400" >古い順</Tab>
+            <Tab bg="gray.400" roundedRight="md">ジャンル順</Tab>
           </TabList>
           <TabIndicator
             mt="-1.5px"
@@ -58,9 +60,10 @@ export const ViewTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-          <TrackTabPanel />
-          <TrackTabPanel />
-          <TrackTabPanel />
+          <TrackTabPanelByLikes />
+          <TrackTabPanelByDesc />
+          <TrackTabPanelByAsc />
+          <TrackTabPanelByGenre />
         </TabPanels>
       </Tabs >
     </>
