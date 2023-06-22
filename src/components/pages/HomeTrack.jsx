@@ -1,7 +1,10 @@
 import { Box, Tab, TabIndicator, TabList, TabPanels, Tabs, Text } from "@chakra-ui/react"
 import { memo } from "react"
-import { TrackTabPanel } from "../molecules/tabs/TrackTabPanel"
 import backgroundImage from "../../images/trackBackground.jpg"
+import { TrackTabPanelByLikes } from "../molecules/tabs/TrackTabPanelByLikes"
+import { TrackTabPanelByAsc } from "../molecules/tabs/TrackTabPanelByAsc"
+import { TrackTabPanelByDesc } from "../molecules/tabs/TrackTabPanelByDesc"
+import { TrackTabPanelByGenre } from "../molecules/tabs/TrackTabPanelByGenre"
 
 export const HomeTrack = memo(() => {
   return (
@@ -25,7 +28,8 @@ export const HomeTrack = memo(() => {
           <TabList p={2}>
             <Tab bg="gray.400" roundedLeft="md">人気順</Tab>
             <Tab bg="gray.400" >新しい順</Tab>
-            <Tab bg="gray.400" roundedRight="md">古い順</Tab>
+            <Tab bg="gray.400" >古い順</Tab>
+            <Tab bg="gray.400" roundedRight="md">ジャンル順</Tab>
           </TabList>
           <TabIndicator
             mt="-1.5px"
@@ -43,9 +47,10 @@ export const HomeTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-          <TrackTabPanel />
-          <TrackTabPanel />
-          <TrackTabPanel />
+          <TrackTabPanelByAsc />
+          <TrackTabPanelByDesc />
+          <TrackTabPanelByLikes />
+          <TrackTabPanelByGenre />
         </TabPanels>
       </Tabs >
     </>
