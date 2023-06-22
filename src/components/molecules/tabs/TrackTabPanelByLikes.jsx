@@ -1,12 +1,12 @@
 import { Box, Flex, Grid, TabPanel, Wrap } from "@chakra-ui/react"
 import { memo } from "react"
 import { TrackCard } from '../card/TrackCard';
-import { useQueryTracks } from './../../../hooks/useQueryTrack';
 import { CustomSpinner } from "../../atoms/spinner/CustomSpinner";
+import { useQueryTracks } from "../../../hooks/useQueryTrack";
 
-export const TrackTabPanel = memo(() => {
+export const TrackTabPanelByLikes = memo(() => {
 
-  const { data, isLoading } = useQueryTracks()
+  const { data, isLoading } = useQueryTracks("Likes")
 
   return (
     <>
