@@ -63,10 +63,27 @@ export const useMutateLikeFlag = () => {
     }
   )
 
+  const deleteLikeFlagMutation = useMutation(
+    async (id) => {
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/account/deleteLikeFlag/${id}`)
+      return response;
+    },
+    {
+      onError: (err) => {
+        if (err.response.data.message) {
+          console.log(err.response.data.message)
+        } else {
+          console.log(err.response.data.message)
+        }
+      },
+    }
+  )
+
 
   return {
     createLikeFlagMutation,
     addLikeFlagMutation,
     addUnLikeFlagMutation,
+    deleteLikeFlagMutation,
   }
 }
