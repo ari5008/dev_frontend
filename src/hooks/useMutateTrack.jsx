@@ -141,9 +141,11 @@ export const useMutateTrack = () => {
         if (previousTracks) {
           queryClient.setQueryData(
             ['tracks', 'Likes'],
-            previousTracks[0].map((previousTrack) => (
-              previousTrack.id === variables.id ? res.data : previousTrack
-            ))
+            previousTracks[0]
+              .map((previousTrack) =>
+                previousTrack.id === variables.id ? res.data : previousTrack
+              )
+              .sort((a, b) => b.likes - a.likes)
           )
           queryClient.setQueryData(
             ['tracks', 'Asc'],
@@ -207,9 +209,11 @@ export const useMutateTrack = () => {
         if (previousTracks) {
           queryClient.setQueryData(
             ['tracks', 'Likes'],
-            previousTracks[0].map((previousTrack) => (
-              previousTrack.id === variables.id ? res.data : previousTrack
-            ))
+            previousTracks[0]
+              .map((previousTrack) =>
+                previousTrack.id === variables.id ? res.data : previousTrack
+              )
+              .sort((a, b) => b.likes - a.likes)
           )
           queryClient.setQueryData(
             ['tracks', 'Asc'],
