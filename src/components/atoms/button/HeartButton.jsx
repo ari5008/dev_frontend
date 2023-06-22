@@ -1,28 +1,23 @@
 import { Button, Text } from "@chakra-ui/react"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { memo, useEffect, useState } from "react"
+import { memo, useEffect } from "react"
 import { useMutateTrack } from "../../../hooks/useMutateTrack"
 import { useQueryAccount } from "../../../hooks/useQueryAccount"
 import { useMutateLikeFlag } from "../../../hooks/useMutateLikeFlag"
-import axios from "axios"
+import { useQueryLikeFlag } from "../../../hooks/useQueryLikeFlag"
 
 export const HeartButton = memo(({ dat: trackData }) => {
 
   const { data: accountData } = useQueryAccount()
-  const [flag, setFlag] = useState(null);
-  const { createLikeFlagMutation, addLikeFlag, addUnLikeFlag } = useMutateLikeFlag()
-  const [count, setCount] = useState(trackData.likes)
+  const { data: likeFlagData} = useQueryLikeFlag(trackData.id, accountData?.id)
+  const { createLikeFlagMutation, addLikeFlagMutation, addUnLikeFlagMutation } = useMutateLikeFlag()
   const { incrementTrackLikesMutation, decrementTrackLikesMutation } = useMutateTrack()
 
   async function initialize() {
     if (accountData?.id != 0 && trackData.id != 0) {
       await createLikeFlagMutation.mutateAsync({ account_id: accountData?.id, track_id: trackData.id });
     }
-    const { data: response } = await axios.get(`${import.meta.env.VITE_API_URL}/account/getLikeFlag/${trackData.id}`,
-      { withCredentials: true }
-    );
-    setFlag(response.liked);
   }
 
   useEffect(() => {
@@ -32,25 +27,14 @@ export const HeartButton = memo(({ dat: trackData }) => {
 
   }, [trackData.id, accountData?.id]);
 
-
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/account/track/${trackData.id}`).then(res => {
-      setCount(res.data.likes);
-    });
-  }, [trackData.likes]);
-
-
+  
   function handleClick() {
-    if (flag === false) {
-      incrementTrackLikesMutation.mutate({...trackData, likes: count})
-      addLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id, likes: count })
-      setCount(count + 1)
-      setFlag(true)
+    if (likeFlagData?.liked === false) {
+      incrementTrackLikesMutation.mutate({...trackData, likes: trackData.likes})
+      addLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
     } else {
-      decrementTrackLikesMutation.mutate({...trackData, likes: count})
-      addUnLikeFlag.mutate({ account_id: accountData?.id, track_id: trackData.id })
-      setCount(count - 1)
-      setFlag(false)
+      decrementTrackLikesMutation.mutate({...trackData, likes: trackData.likes})
+      addUnLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
     }
   }
 
@@ -65,9 +49,9 @@ export const HeartButton = memo(({ dat: trackData }) => {
     >
       <FontAwesomeIcon
         icon={faHeart}
-        color={flag ? "red" : "black"}
+        color={likeFlagData?.liked ? "red" : "black"}
       />
-      <Text ml={4}>{count}</Text>
+      <Text ml={4}>{trackData.likes}</Text>
     </Button>
   )
 });
