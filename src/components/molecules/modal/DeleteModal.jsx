@@ -3,10 +3,10 @@ import { memo, useRef } from "react";
 import { useMutateTrack } from "../../../hooks/useMutateTrack";
 import { useMutateLikeFlag } from "../../../hooks/useMutateLikeFlag";
 
-export const DeleteModal = memo(({isOpen, onClose, handleOverlayClick, dat}) => {
+export const DeleteModal = memo(({ isOpen, onClose, handleOverlayClick, dat }) => {
 
   const { deleteTrackMutation } = useMutateTrack()
-  const {deleteLikeFlagMutation} = useMutateLikeFlag()
+  const { deleteLikeFlagMutation } = useMutateLikeFlag()
   const cancelRef = useRef()
   return (
     <>
