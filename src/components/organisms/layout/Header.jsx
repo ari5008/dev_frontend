@@ -61,15 +61,27 @@ export const Header = memo(() => {
             </Link>
           </Box>
         </Flex>
-        <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }}>
-          <Box px={3} m={1}>
-            <Link to="/track" className="link">
-              <span>
-                曲を閲覧
-              </span>
-            </Link>
-          </Box>
-        </Flex>
+        {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
+          <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }}>
+            <Box px={3} m={1}>
+              <Link to="/tracks" className="link">
+                <span>
+                  曲を閲覧
+                </span>
+              </Link>
+            </Box>
+          </Flex>
+        ) : (
+          <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }}>
+            <Box px={3} m={1}>
+              <Link to="/account/tracks" className="link">
+                <span>
+                  曲を閲覧
+                </span>
+              </Link>
+            </Box>
+          </Flex>
+        )}
         <Flex align="center" fontSize="md" flexGrow={2} display={{ base: "none", lg: "flex" }} justifyContent="flex-end">
           {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
             <>
