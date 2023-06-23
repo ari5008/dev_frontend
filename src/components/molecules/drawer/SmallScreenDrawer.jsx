@@ -61,11 +61,19 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
                 </Link>
               </Box>
               <Divider colorScheme='whatsapp' />
-              <Box px={3} my={3} color="gray.800" >
-                <Link to="/topic" className="navlink" style={{ fontSize: "28px" }}>
-                  <Box className="box" textShadow="1px 0px 1px #222527af">閲覧</Box>
-                </Link>
-              </Box>
+              {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
+                <Box px={3} my={3} color="gray.800" >
+                  <Link to="/tracks" className="navlink" style={{ fontSize: "28px" }}>
+                    <Box className="box" textShadow="1px 0px 1px #222527af">閲覧</Box>
+                  </Link>
+                </Box>
+              ) : (
+                <Box px={3} my={3} color="gray.800" >
+                  <Link to="/account/tracks" className="navlink" style={{ fontSize: "28px" }}>
+                    <Box className="box" textShadow="1px 0px 1px #222527af">閲覧</Box>
+                  </Link>
+                </Box>
+                )}
               <Divider color='primary' />
               {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
                 <>
@@ -84,6 +92,11 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
                 </>
               ) : (
                 <>
+                  <Box px={3} my={3} color="gray.800" >
+                    <Link to="/account" className="navlink" style={{ fontSize: "28px" }}>
+                      <Box className="box" textShadow="1px 0px 1px #222527af">Myアカウント</Box>
+                    </Link>
+                  </Box>
                   <Box px={3} my={3} color="gray.800" >
                     <Link to="/login" onClick={logout} className="navlink" style={{ fontSize: "28px" }}>
                       <Box className="box" textShadow="1px 0px 1px #222527af">ログアウト</Box>
