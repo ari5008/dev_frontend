@@ -1,6 +1,6 @@
 import { ChatIcon, CheckIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading, Text, Textarea } from "@chakra-ui/react";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { TrackSelect } from "../atoms/select/TrackSelect";
 import { TrackImage } from "../atoms/image/TrackImage";
 import { useMutateTrack } from "../../hooks/useMutateTrack";
@@ -10,7 +10,7 @@ import { selectedDataStore } from "../../store/selectedDataStore";
 
 export const CreateTrack = memo(() => {
 
-  const {editedSelectedData} = selectedDataStore()
+  const { editedSelectedData } = selectedDataStore()
   const { createTrackMutation, loading } = useMutateTrack()
   const { editedTrack } = trackStore()
   const updateTrack = trackStore((state) => state.updateEditedTrack)
@@ -25,14 +25,10 @@ export const CreateTrack = memo(() => {
         genre: editedTrack.genre,
         comment: editedTrack.comment,
         likes: editedTrack.likes,
+        external_url: editedSelectedData.external_url,
       })
     }
   }
-
-  useEffect(() => {
-    // console.log(editedTrack)
-  }, [editedTrack])
-
   return (
     <>
       <Box
