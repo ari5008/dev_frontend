@@ -20,7 +20,8 @@ export const Account = memo(() => {
 
   const submitAccountHandler = (e) => {
     e.preventDefault()
-    updateAccountMutation.mutate(editedAccount)
+    const accountAndTrack = [editedAccount, data]
+    updateAccountMutation.mutate(accountAndTrack)
   }
 
   return (
@@ -47,7 +48,7 @@ export const Account = memo(() => {
                 <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount} />
                 <Grid templateRows='repeat(2, auto)' gap={2} >
                   <GridItem rowSpan={1} colSpan={2} >
-                    <Tag variant='outline' colorScheme='black' >ユーザー名</Tag>
+                    <Tag  colorScheme='blackAlpha' >ユーザー名</Tag>
                   </GridItem>
                   <GridItem colSpan={2} >
                     <Input
@@ -66,7 +67,7 @@ export const Account = memo(() => {
               </Grid>
               <Grid templateColumns="1fr" gap={2} pt={6} pl={{ base: '25px', md: '80px' }}>
                 <GridItem>
-                  <Tag variant="outline" colorScheme="black">
+                  <Tag  colorScheme="blackAlpha">
                     プロフィール
                   </Tag>
                 </GridItem>
