@@ -16,12 +16,13 @@ export const useMutateAccount = () => {
   const updateAccountMutation = useMutation(
     async (account) => {
       setLoading(true);
-       const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/${account.id}`, {
-        user_name: account.user_name,
-        image_url: account.image_url,
-        introduction: account.introduction,
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/${account[0].id}`, {
+        user_name: account[0].user_name,
+        image_url: account[0].image_url,
+        introduction: account[0].introduction,
       })
-      return response;
+      const res = [response, account[1]]
+      return res;
     },
     {
       onSuccess: (res, variables) => {
@@ -29,9 +30,14 @@ export const useMutateAccount = () => {
         if (previousAccount) {
           queryClient.setQueryData(
             ['account'],
-            previousAccount.id === variables.id ? res.data : previousAccount
+            previousAccount.id === variables.id ? res[0].data : previousAccount
           )
         }
+        res[1].map((track) => {
+          queryClient.setQueryData(
+            ["account", track.id], res[0].data
+          )
+        })
         showMessage({ title: "登録しました", status: "success" })
         navigate(`/account`)
         setLoading(false);
