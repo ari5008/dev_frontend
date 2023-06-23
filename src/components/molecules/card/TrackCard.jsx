@@ -1,14 +1,16 @@
-import { Box, Button, Card, CardFooter, Divider, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react"
-import { memo } from "react"
+import { Box, Button, Card, CardFooter, Divider, Flex, Icon, Popover, PopoverTrigger, Text, useDisclosure } from "@chakra-ui/react"
+import { memo, useRef } from "react"
 import "../../../styles.css"
 import { HeartButton } from "../../atoms/button/HeartButton"
 import { GenreTag } from "../../atoms/tag/GenreTag"
 import { TrackImage } from './../../atoms/image/TrackImage';
 import { DeleteIcon } from "@chakra-ui/icons"
 import { DeleteModal } from "../modal/DeleteModal"
+import { DetailTrackPoverContent } from "../popover/DetailTrackPopverContent"
 
 export const TrackCard = memo(({ dat, flag }) => {
 
+  const initialFocusRef = useRef()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -24,7 +26,6 @@ export const TrackCard = memo(({ dat, flag }) => {
       bg="gray.100"
       borderRadius="10px"
       shadow="lg"
-      // _hover={{ cursor: "pointer", opacity: 0.9 }}
       display="flex"
       flexDirection="column"
     >
@@ -32,7 +33,6 @@ export const TrackCard = memo(({ dat, flag }) => {
         bgGradient='linear(to-r, black, teal.700, black)'
         color="gray.200"
         textAlign="center"
-        // h="200px"
         pb={1}
         borderTopRadius="10px"
       >
@@ -86,10 +86,9 @@ export const TrackCard = memo(({ dat, flag }) => {
             </Button>
           )}
         </Box>
-        <DeleteModal isOpen={isOpen} onClose={onClose} handleOverlayClick={handleOverlayClick} dat={dat}/>
-        
+        <DeleteModal isOpen={isOpen} onClose={onClose} handleOverlayClick={handleOverlayClick} dat={dat} />
       </Flex>
-      <Flex flex={1} justifyContent="flex-end" alignItems="center" >
+      <Flex flex={1} alignItems="center" justifyContent="flex-end">
         <TrackImage src={dat.jacket_image} boxSize={"220px"} />
       </Flex>
       <CardFooter
@@ -101,9 +100,24 @@ export const TrackCard = memo(({ dat, flag }) => {
           },
         }}
       >
-        <Button colorScheme='telegram' flex='1' variant='outline' mr={2}>
-          詳細
-        </Button>
+        <Popover
+          initialFocusRef={initialFocusRef}
+          placement='top'
+          closeOnBlur={true}
+          offsetX="-50px"
+        >
+          <PopoverTrigger>
+            <Button
+              colorScheme='telegram'
+              variant='outline'
+              flex='1'
+              mr={2}
+            >
+              詳細
+            </Button>
+          </PopoverTrigger>
+          <DetailTrackPoverContent dat={dat} />
+        </Popover>
         {(expiry && new Date().getTime() < parseInt(expiry)) ? (
           <HeartButton dat={dat} />
         ) : null}
