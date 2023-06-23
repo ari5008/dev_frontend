@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, GridItem, Heading, Input, Tag, Textarea, Wrap } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Heading, Input, Stack, Tag, Wrap } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import { useQueryAccount } from "../../hooks/useQueryAccount";
 import { accountStore } from "../../store/accountStore";
@@ -36,74 +36,45 @@ export const Account = memo(() => {
           mb={8}
           color='black'
           flexDirection='column'
-
         >
-          <Box h={{ base: '380px', md: '330px' }} bg='white' borderTopRadius={10}>
+          <Box h={{ base: '250px', md: '250px' }} bg='white' borderTopRadius={10}>
             <Heading textAlign='center' fontSize="25px" py={7}>アカウント画面</Heading>
             <form onSubmit={submitAccountHandler}>
-              <Grid
-                templateColumns="0.1fr 1fr"
-                pl={{ base: '25px', md: '80px' }}
-              >
-                <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount} />
-                <Grid templateRows='repeat(2, auto)' gap={2} >
-                  <GridItem rowSpan={1} colSpan={2} >
-                    <Tag  colorScheme='blackAlpha' >ユーザー名</Tag>
-                  </GridItem>
-                  <GridItem colSpan={2} >
-                    <Input
-                      size={{ base: "lg", md: "md" }}
-                      name="user_name"
-                      placeholder='(20文字以内)'
-                      variant='outline'
-                      w="95%"
-                      type="text"
-                      width={{ base: '95%', md: '50%' }}
-                      onChange={(e) => updateAccount({ ...editedAccount, user_name: e.target.value })}
-                      value={editedAccount.user_name}
-                    />
-                  </GridItem>
-                </Grid>
-              </Grid>
-              <Grid templateColumns="1fr" gap={2} pt={6} pl={{ base: '25px', md: '80px' }}>
-                <GridItem>
-                  <Tag  colorScheme="blackAlpha">
-                    プロフィール
-                  </Tag>
-                </GridItem>
-                <Grid templateColumns={{ base: "1fr", md: "1fr auto" }} alignItems="center">
-                  <GridItem>
-                    <Textarea
-                      size={{ base: "lg", md: "md" }}
-                      name="introduction"
-                      placeholder="(100文字以内)"
-                      resize="none"
-                      pr={6}
-                      width="95%"
-                      mb={{ base: "20px", md: "0px" }}
-                      type="text"
-                      onChange={(e) =>
-                        updateAccount({ ...editedAccount, introduction: e.target.value })
-                      }
-                      value={editedAccount.introduction}
-                    />
-                  </GridItem>
-                  <GridItem alignSelf="center" justifySelf="center">
-                    <Button
-                      size={{ base: "lg", md: "md" }}
-                      colorScheme="teal"
-                      type="submit"
-                      mr="50px"
-                      mt={{ base: "0px", md: "35px" }}
-                      isLoading={loading}
-                      loadingText="登録する"
-                    >
-                      <CheckIcon mr={1} />
-                      登録する
-                    </Button>
-                  </GridItem>
-                </Grid>
-              </Grid>
+              <Flex justifyContent="center">
+                <Box pr={{ base: "5px", md: "20px" }} pt={2}>
+                  <AccountAvatar updateAccount={updateAccount} editedAccount={editedAccount} />
+                </Box>
+                <Stack>
+                  <Box textAlign='left' >
+                    <Tag colorScheme='blackAlpha'>
+                      ユーザー名
+                    </Tag>
+                  </Box>
+                  <Input
+                    size="lg"
+                    name="user_name"
+                    placeholder='(20文字以内)'
+                    variant='outline'
+                    type="text"
+                    w={{ base: "230px", md: "400px" }}
+                    onChange={(e) => updateAccount({ ...editedAccount, user_name: e.target.value })}
+                    value={editedAccount.user_name}
+                  />
+                </Stack>
+              </Flex>
+              <Flex justifyContent="center">
+                <Button
+                  size={{ base: "lg", md: "md" }}
+                  colorScheme="teal"
+                  type="submit"
+                  mt="20px"
+                  isLoading={loading}
+                  loadingText="登録する"
+                >
+                  <CheckIcon mr={1} />
+                  登録する
+                </Button>
+              </Flex>
             </form>
           </Box>
           <Box flex='1' bg='gray.200' borderBottomRadius={10} py={7}>
