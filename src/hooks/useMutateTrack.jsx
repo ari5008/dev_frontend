@@ -39,9 +39,6 @@ export const useMutateTrack = () => {
         queryClient.setQueryData(["tracks", "Desc"], (oldTracks = []) => {
           return [res.data, ...oldTracks];
         });
-        queryClient.setQueryData(['tracks', 'AccountId', res.data.account_id], (oldTracks = []) => {
-          return [...oldTracks, res.data];
-        });
         queryClient.setQueryData(["tracks", "Genre"], (oldTracks = []) => {
           const tracks = [...oldTracks, res.data];
           const newTracks = tracks.sort((a, b) => useGenreRank(a.genre) - useGenreRank(b.genre));
