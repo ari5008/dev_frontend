@@ -49,7 +49,7 @@ export const useMutateAuth = () => {
     {
       onSuccess: () => {
         const expiryDate = new Date();
-        expiryDate.setMinutes(expiryDate.getMinutes() + 60); 
+        expiryDate.setHours(expiryDate.getHours() + 12); 
         localStorage.setItem('expiry', expiryDate.getTime().toString());
         navigate('/')
         showMessage({ title: "ログインしました", status: "success" })
