@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { Header } from "../organisms/layout/Header";
+import { Footer } from "../organisms/layout/Footer";
 
 export const Layout = ({ children }) => {
 
@@ -19,6 +20,7 @@ export const Layout = ({ children }) => {
           </Box>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 }
