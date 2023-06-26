@@ -5,7 +5,6 @@ export const accountStore = create((set) => ({
     id: 0,
     user_name: "",
     image_url: "",
-    introduction: "",
   },
   updateEditedAccount: (payload) =>
     set({
