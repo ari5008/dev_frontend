@@ -16,6 +16,10 @@ export const useError = () => {
   const switchErrorHandling = (msg) => {
 
     let newErrors = []
+    if (msg.includes('invalid or expired jwt')) {
+      navigate('/login')
+      newErrors.push('セッションが消えたので、再度ログインしてください');
+    }
     if (msg.includes('missing or malformed jwt')) {
       navigate('/login')
       newErrors.push('セッションが消えたので、再度ログインしてください');
@@ -49,13 +53,9 @@ export const useError = () => {
     if (msg.includes('crypto/bcrypt: hashedPassword is not the hash of the given password')) {
       newErrors.push('パスワードが正しくありません');
     }
-    if (msg.includes('limited user_name max 20 char')) {
-      newErrors.push('20文字以内で入力してください');
+    if (msg.includes('limited user_name max 15 char')) {
+      newErrors.push('15文字以内で入力してください');
     }
-    if (msg.includes('limited introduction max 100 char')) {
-      newErrors.push('100文字以内で入力してください');
-    }
-
     if (msg.includes('require title')) {
       newErrors.push('曲名を選択してください');
     }
@@ -68,14 +68,17 @@ export const useError = () => {
     if (msg.includes('require genre')) {
       newErrors.push('ジャンルが選択されていません');
     }
+
+    if (msg.includes('limit comment')) {
+      newErrors.push('コメントは100文字以内で入力してください');
+    }
+
     if (msg.includes('duplicated Title and ArtistName and AccountID')) {
       newErrors.push("過去に同じ曲を選択しています。\n該当する曲を削除してから再度選択してください");
     }
     if (msg.includes('duplicated track')) {
       newErrors.push("同じ曲で同じジャンルが選曲されています。\n別の曲を選択するか別のジャンルを選択してください");
     }
-
-    alert(msg)
 
     newErrors.map((err) => {
       showMessage({ title: err, status: "error" })
