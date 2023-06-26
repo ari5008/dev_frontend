@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Flex, Box, useDisclosure } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
 import "../../../styles.css";
@@ -8,21 +8,8 @@ import { SmallScreenDrawer } from "../../molecules/drawer/SmallScreenDrawer";
 import { useMutateAuth } from "../../../hooks/useMutateAuth";
 import { SmallScreenMenuButton } from './../../atoms/button/SmallScreenMenuButton';
 import { useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
 export const Header = memo(() => {
-
-  // const [id, setId] = useState(null)
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get(`${import.meta.env.VITE_API_URL}/account`);
-  //     setId(response.data.id)import { ViewIcon } from '@chakra-ui/icons';
-
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // fetchData();
 
   const queryClient = useQueryClient()
   const expiry = localStorage.getItem('expiry');
@@ -48,7 +35,7 @@ export const Header = memo(() => {
         color="white"
         align="center"
         justify="space-between"
-        padding={{ base: 3, md: 3 }}
+        padding={{ base: 5, md: 3 }}
         position="fixed"
         zIndex="10"
         top="0"
