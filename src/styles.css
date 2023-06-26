@@ -1,41 +1,59 @@
+.recommended-song {
+	animation-name: song-recommendation;
+	animation-duration: 2s;
+	animation-direction: alternate;
+  animation-fill-mode: forwards;
+	position: relative;
+	transform-origin: bottom center;
+}
+
+@keyframes song-recommendation {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(-100%);
+	}
+}
+
 .link {
-  text-decoration: none; 
+	text-decoration: none;
 }
 
 .link:hover span {
-  border-bottom: 1.5px solid white; 
+	border-bottom: 1.5px solid white;
 }
 
 .navlink {
-  text-decoration: none; 
+	text-decoration: none;
 }
 
 .navlink:hover .box {
-  transform: translateY(2px);
-  transition: all ease-in-out 0.2s;
+	transform: translateY(2px);
+	transition: all ease-in-out 0.2s;
 }
 
 span svg {
-  margin-left: 4px; 
+	margin-left: 4px;
 }
 
 .Image:hover {
-  animation: spin 3s linear infinite;
+	animation: spin 3s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .button_link span {
-  border-bottom: 1px solid transparent; 
+	border-bottom: 1px solid transparent;
 }
 
 .button_link:hover span {
-  border-bottom: 1px solid white; 
+	border-bottom: 1px solid white;
 }
