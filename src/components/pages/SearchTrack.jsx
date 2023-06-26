@@ -82,51 +82,53 @@ export const SearchTrack = memo(() => {
 
   return (
     <>
-      <Box
-        bg='white'
-        mt="2rem"
-        mb="2rem"
-        borderRadius="15px"
-        color="black"
-      >
-        <Heading display="flex" alignItems="center" justifyContent="center" color="gray.600" pt={8}>検索</Heading>
-        <form action="get" onSubmit={submitSearchHandler}>
-          <Flex alignItems="center" justifyContent="center" w="90%" margin="auto" py={5}>
-            <Input
-              type='text'
-              placeholder='曲を検索してください'
-              mr={3}
-              value={editedSelectedData.name}
-              onChange={(e) => updateSelectedData({ ...editedSelectedData, name: e.target.value })}
-            />
-            <Button
-              colorScheme='teal'
-              variant='outline'
-              type="submit"
-            >
-              検索する <SearchIcon ml={1} />
-            </Button>
-          </Flex>
-        </form>
-        {loading ? (
-          <Flex flexDirection='column' alignItems='center' justifyContent='center' h='60vh'>
-            <CustomSpinner />
-          </Flex>
-        ) : (
-          <Box py={5}>
-            <Box w="90%" margin="auto" px={0}>
-              <DataTable
-                columns={columns}
-                data={editedResultTrack}
-                highlightOnHover
-                pointerOnHover
-                onRowClicked={onRowClicked}
-                noDataComponent={<NoDataComponent />}
-                customStyles={customStyles}
+      <Box minH="90vh">
+        <Box
+          bg='white'
+          mt="2rem"
+          mb="2rem"
+          borderRadius="15px"
+          color="black"
+        >
+          <Heading display="flex" alignItems="center" justifyContent="center" color="gray.600" pt={8}>検索</Heading>
+          <form action="get" onSubmit={submitSearchHandler}>
+            <Flex alignItems="center" justifyContent="center" w="90%" margin="auto" py={5}>
+              <Input
+                type='text'
+                placeholder='曲を検索してください'
+                mr={3}
+                value={editedSelectedData.name}
+                onChange={(e) => updateSelectedData({ ...editedSelectedData, name: e.target.value })}
               />
+              <Button
+                colorScheme='teal'
+                variant='outline'
+                type="submit"
+              >
+                検索する <SearchIcon ml={1} />
+              </Button>
+            </Flex>
+          </form>
+          {loading ? (
+            <Flex flexDirection='column' alignItems='center' justifyContent='center' h='60vh'>
+              <CustomSpinner />
+            </Flex>
+          ) : (
+            <Box py={5}>
+              <Box w="90%" margin="auto" px={0}>
+                <DataTable
+                  columns={columns}
+                  data={editedResultTrack}
+                  highlightOnHover
+                  pointerOnHover
+                  onRowClicked={onRowClicked}
+                  noDataComponent={<NoDataComponent />}
+                  customStyles={customStyles}
+                />
+              </Box>
             </Box>
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
     </>
   )
