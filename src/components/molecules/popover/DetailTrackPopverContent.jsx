@@ -14,7 +14,7 @@ export const DetailTrackPoverContent = memo(({ dat }) => {
         color='blue.800'
         bg='#e8e9ef'
         borderColor='#e8e9ef'
-        style={{ right: "22px" }}
+        style={{ left: "6px" }}
         borderRadius="3%"
         shadow="lg"
       >

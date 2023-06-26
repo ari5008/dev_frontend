@@ -22,7 +22,7 @@ export const TrackCard = memo(({ dat, flag }) => {
   return (
     <Card
       w={{ base: "350px", lg: "340px", xl: "320px" }}
-      h={{ base: "500px", xl: "485px" }}
+      h={{ base: "500px", xl: "500px" }}
       bg="gray.100"
       borderRadius="10px"
       shadow="lg"
@@ -34,23 +34,24 @@ export const TrackCard = memo(({ dat, flag }) => {
         color="gray.200"
         textAlign="center"
         pb={1}
+        minHeight="90px"
         borderTopRadius="10px"
       >
-        <Flex mt={2} p={2}>
+        <Flex mt={1} p={2} >
           <Box flex={1} textAlign="left" pl={6} >
             <Text fontSize="sm" >曲名</Text>
           </Box>
-          {dat.title.length > 15 ? (
+          {dat.title.length > 25 ? (
             <Box flex={1} textAlign="left" fontWeight="bold" fontSize="2xs">
               <Text>{dat.title}</Text>
             </Box>
-          ) : dat.title.length > 8 ? (
+          ) : dat.title.length > 18 ? (
             <Box flex={1} textAlign="left" fontWeight="bold" fontSize="sm">
               <Text>{dat.title}</Text>
             </Box>
           ) : (
             <Box flex={1} textAlign="left" fontWeight="bold" fontSize="md">
-              <Text>{dat.title}</Text>
+              <Text >{dat.title}</Text>
             </Box>
           )}
         </Flex>
@@ -59,11 +60,11 @@ export const TrackCard = memo(({ dat, flag }) => {
           <Box flex={1} textAlign="left" pl={6}>
             <Text fontSize="sm" >アーティスト名</Text>
           </Box>
-          {dat.artist_name.length > 15 ? (
+          {dat.artist_name.length > 25 ? (
             <Box flex={1} textAlign="left" fontWeight="bold" fontSize="2xs">
               <Text>{dat.artist_name}</Text>
             </Box>
-          ) : dat.artist_name.length > 8 ? (
+          ) : dat.artist_name.length > 18 ? (
             <Box flex={1} textAlign="left" fontWeight="bold" fontSize="sm">
               <Text>{dat.artist_name}</Text>
             </Box>
@@ -75,7 +76,7 @@ export const TrackCard = memo(({ dat, flag }) => {
         </Flex>
       </Box>
       <Flex justifyContent="space-between">
-        <Box m={3} mb={2}>
+        <Box m={3} mt={5}>
           <GenreTag genre={dat.genre} />
         </Box>
 
