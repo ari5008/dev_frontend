@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import axios from 'axios'
-import styles from "./styles.css?inline";
 import { Layout } from './components/templates/Layout';
-import { Global } from '@emotion/react';
 import theme from './theme/theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import Home from './components/pages/Home';
@@ -30,7 +28,6 @@ function App() {
   }, [])
   return (
     <>
-      <Global styles={styles} />
       <ChakraProvider theme={theme}>
         <BrowserRouter>
           <Layout>
