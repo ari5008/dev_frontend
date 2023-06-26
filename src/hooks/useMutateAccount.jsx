@@ -19,7 +19,6 @@ export const useMutateAccount = () => {
       const response = await axios.put(`${import.meta.env.VITE_API_URL}/account/${account[0].id}`, {
         user_name: account[0].user_name,
         image_url: account[0].image_url,
-        introduction: account[0].introduction,
       })
       const res = [response, account[1]]
       return res;
