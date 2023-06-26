@@ -55,20 +55,20 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
               bg="#54474736"
             >
               <Divider colorScheme='whatsapp' />
-              <Box px={3} my={3} color="gray.800" >
+              <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                 <Link to="/" className="navlink" style={{ fontSize: "30px" }} >
                   <Box className="box" textShadow="1px 0px 1px #222527af">Home</Box>
                 </Link>
               </Box>
               <Divider colorScheme='whatsapp' />
               {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
-                <Box px={3} my={3} color="gray.800" >
+                <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                   <Link to="/tracks" className="navlink" style={{ fontSize: "28px" }}>
                     <Box className="box" textShadow="1px 0px 1px #222527af">閲覧</Box>
                   </Link>
                 </Box>
               ) : (
-                <Box px={3} my={3} color="gray.800" >
+                <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                   <Link to="/account/tracks" className="navlink" style={{ fontSize: "28px" }}>
                     <Box className="box" textShadow="1px 0px 1px #222527af">閲覧</Box>
                   </Link>
@@ -77,13 +77,13 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
               <Divider color='primary' />
               {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
                 <>
-                  <Box px={3} my={3} color="gray.800" >
-                    <Link to="/signup" className="navlink" style={{ fontSize: "28px" }}>
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
+                    <Link to="/signup" className="navlink" style={{ fontSize: "28px" }} >
                       <Box className="box" textShadow="1px 0px 1px #222527af">新規登録</Box>
                     </Link>
                   </Box>
                   <Divider color='primary' />
-                  <Box px={3} my={3} color="gray.800" >
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                     <Link to="/login" className="navlink" style={{ fontSize: "28px" }}>
                       <Box className="box" textShadow="1px 0px 1px #222527af">ログイン</Box>
                     </Link>
@@ -92,12 +92,12 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
                 </>
               ) : (
                 <>
-                  <Box px={3} my={3} color="gray.800" >
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                     <Link to="/account" className="navlink" style={{ fontSize: "28px" }}>
                       <Box className="box" textShadow="1px 0px 1px #222527af">Myアカウント</Box>
                     </Link>
                   </Box>
-                  <Box px={3} my={3} color="gray.800" >
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
                     <Link to="/login" onClick={logout} className="navlink" style={{ fontSize: "28px" }}>
                       <Box className="box" textShadow="1px 0px 1px #222527af">ログアウト</Box>
                     </Link>
