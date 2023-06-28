@@ -16,8 +16,8 @@ export const useTracksByAccountId = (accountId) => {
   return useQuery({
     queryKey: ["tracks", "AccountId", accountId],
     queryFn: getTrackByAccountId,
-    staleTime: Infinity,
-    // refetchInterval: 2000,
+    staleTime: 0,
+    refetchInterval: 2000,
     onError: (err) => {
       if (err.response.data.message) {
         switchErrorHandling(err.response.data.message)
