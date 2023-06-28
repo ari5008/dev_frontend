@@ -42,7 +42,7 @@ const Home = memo(() => {
               fontWeight="bold"
               position="absolute"
               top={{ base: "45%", md: "37%" }}
-              right={{ base: "30%", md: "15%" }}
+              right={{ base: "30%", md: "5%", lg: "15%" }}
             >
               <Text>日々の生活に癒しを求めて...</Text>
             </Stack>

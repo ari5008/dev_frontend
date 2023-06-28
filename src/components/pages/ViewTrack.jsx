@@ -21,7 +21,7 @@ export const ViewTrack = memo(() => {
         align='end'
         variant="unstyled"
         color="black"
-        mb={8}
+        mb={10}
         size={{ base: "sm", lg: "md" }}
         minH="90vh"
       >

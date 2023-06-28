@@ -35,7 +35,7 @@ export const Account = memo(() => {
         <Box minH="90vh">
           <Flex
             mt="2.5rem"
-            mb={8}
+            mb={10}
             color='black'
             flexDirection='column'
           >
