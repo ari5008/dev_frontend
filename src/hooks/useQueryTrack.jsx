@@ -14,7 +14,7 @@ export const useQueryTracks = (sortOption) => {
     queryKey: ["tracks", sortOption],
     queryFn: getTracks,
     staleTime: Infinity,
-    // refetchInterval: 1000,
+    refetchInterval: 1000,
     onError: (err) => {
       if (err.response.data.message) {
         switchErrorHandling(err.response.data.message);

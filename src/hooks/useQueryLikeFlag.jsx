@@ -13,7 +13,7 @@ export const useQueryLikeFlag = (trackId, accountId) => {
   return useQuery({
     queryKey: ["likeFlag", trackId, accountId],
     queryFn: getLikeFlag,
-    staleTime: Infinity,
+    staleTime: 0,
     onError: (err) => {
       if (err.response.data.message) {
         switchErrorHandling(err.response.data.message);
