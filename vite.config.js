@@ -10,8 +10,8 @@ dns.setDefaultResultOrder('verbatim')
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: "localhost",
+    host: "dev-frontend-five.vercel.app", // dev環境ではlocalhost
     port: 3000,
-    strictPort: true,
+    strictPort: false,
   },
 });
