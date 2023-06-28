@@ -26,7 +26,7 @@ export const Signup = memo(() => {
 
   return (
     <>
-      <Flex align="center" justify="center" pt={{ base: "0rem", md: "3.5rem" }} pb={{ base: "0px", md: "30px" }} h="90vh">
+      <Flex align="center" justify="center" pt={{ base: "0rem", md: "3.5rem" }} pb={{ base: "0px", md: "65px" }} h="90vh">
         <Box
           h="lg"
           w="lg"
