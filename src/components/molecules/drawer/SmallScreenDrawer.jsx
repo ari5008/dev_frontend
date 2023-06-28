@@ -77,13 +77,13 @@ export const SmallScreenDrawer = memo(({ isOpen, handleOverlayClick, logout, exp
               <Divider color='primary' />
               {!(expiry && new Date().getTime() < parseInt(expiry)) ? (
                 <>
-                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }} display={{ base: "none", md: "block" }}>
                     <Link to="/signup" className="navlink" style={{ fontSize: "28px" }} >
                       <Box className="box" textShadow="1px 0px 1px #222527af">新規登録</Box>
                     </Link>
                   </Box>
-                  <Divider color='primary' />
-                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }}>
+                  <Divider color='primary' display={{ base: "none", md: "block" }}/>
+                  <Box px={3} my={3} color="gray.800" _hover={{ cursor: "pointer", opacity: 0.8 }} display={{ base: "none", md: "block" }}>
                     <Link to="/login" className="navlink" style={{ fontSize: "28px" }}>
                       <Box className="box" textShadow="1px 0px 1px #222527af">ログイン</Box>
                     </Link>
