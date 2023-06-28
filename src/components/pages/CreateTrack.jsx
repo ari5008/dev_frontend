@@ -34,7 +34,7 @@ export const CreateTrack = memo(() => {
       <Box
         bgGradient='linear(to-r, gray.100, white, gray.100)'
         mt="2rem"
-        mb="2rem"
+        mb={{ base: "2rem", lg: "2.5rem" }}
         borderRadius="15px"
         color="black"
       >
