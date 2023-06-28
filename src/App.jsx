@@ -17,15 +17,18 @@ import { HomeTrack } from './components/pages/HomeTrack';
 function App() {
 
   useEffect(() => {
-    axios.defaults.withCredentials = true
-    const getCsrfToken = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/csrf`
-      )
-      axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token
+    // スマホ版の場合はCSRFトークンを取得しない
+    if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      axios.defaults.withCredentials = true;
+      const getCsrfToken = async () => {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/csrf`
+        );
+        axios.defaults.headers.common['X-CSRF-Token'] = data.csrf_token;
+      };
+      getCsrfToken();
     }
-    getCsrfToken()
-  }, [])
+  }, []);
   return (
     <>
       <ChakraProvider theme={theme}>
