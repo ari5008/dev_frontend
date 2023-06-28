@@ -1,26 +1,14 @@
-/* local環境で使用するためコメントアウト /*
-// import react from '@vitejs/plugin-react'; 
-// import { defineConfig } from 'vite'
-// import dns from 'dns'
-
-// dns.setDefaultResultOrder('verbatim')
-// /**
-//  * https://vitejs.dev/config/
-//  * @type {import('vite').UserConfig}
-//  */
-// export default defineConfig({
-//   plugins: [react()],
-//   server: {
-//     host: "dev-frontend-five.vercel.app", // dev環境ではlocalhost
-//     port: 3000,
-//     strictPort: false,
-//   },
-// });
-
+import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import dns from 'dns'
 
-// https://vitejs.dev/config/
+dns.setDefaultResultOrder('verbatim')
+
 export default defineConfig({
   plugins: [react()],
-})
+  server: {
+    host: "localhost", 
+    port: 3000,
+    strictPort: false,
+  },
+});
