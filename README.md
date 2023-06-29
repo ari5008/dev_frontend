@@ -1,9 +1,10 @@
 
-##  - 曲選曲 - :musical_note:
+#  - 曲選曲 - :musical_note:
+
  曲の投稿サイトのフロントエンドです。<br >
  自分の好きな曲を投稿したり、他の人の曲一覧を見ることができます。 
- <br >
- 
+ <br>
+ <br>
  
 **Home画面**
  <br>
@@ -17,18 +18,24 @@
  <br>
  <img width="400" alt="検索画面" src="https://github.com/ari5008/dev_frontend/assets/127650560/698f25aa-b84c-4fc7-8eaa-8118554b6c28">
 
-## ツール・ライブラリ
+<br>
+
+# ツール・ライブラリ
 <img src="https://img.shields.io/badge/Javascript-276DC3.svg?logo=javascript&style=flat" > <img src="https://img.shields.io/badge/-React-555.svg?logo=react&style=flat">
 <img src="https://img.shields.io/badge/-chakra-09D3AC.svg?logo=chakraui&style=flat"> 
 <img src="https://img.shields.io/badge/-reactquery-8CA1AF.svg?logo=reactquery&style=flat">
 <img src="https://img.shields.io/badge/-reactrouter-white.svg?logo=reactrouter&style=flat">
 <img src="https://img.shields.io/badge/-fontawesome-F06A6A.svg?logo=fontawesome&style=flat">
 
-## URL
+<br>
+
+# URL
 https://dev-frontend-five.vercel.app/ <br />
 
+<br>
 
-## 機能一覧
+
+# 機能一覧
   - アカウント登録、ログイン機能
   - ユーザー名、ユーザーのアバター変更機能
   - 曲選択機能
