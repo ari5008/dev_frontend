@@ -71,7 +71,7 @@ export const useMutateAuth = () => {
     {
       onSuccess: () => {
         localStorage.removeItem('expiry');
-        navigate('/login')
+        navigate('/')
         resetEditedTrack()
         resetEditedResultTrack()
         resetEditedSelectedData()
