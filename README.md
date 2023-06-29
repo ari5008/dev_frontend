@@ -21,7 +21,9 @@
 <br>
 
 # ツール・ライブラリ
-<img src="https://img.shields.io/badge/Javascript-276DC3.svg?logo=javascript&style=flat" > <img src="https://img.shields.io/badge/-React-555.svg?logo=react&style=flat">
+<img src="https://img.shields.io/badge/-HTML5-333.svg?logo=html5&style=flat"> <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=css3&style=flat">
+<img src="https://img.shields.io/badge/Javascript-276DC3.svg?logo=javascript&style=flat" >
+<img src="https://img.shields.io/badge/-React-555.svg?logo=react&style=flat">
 <img src="https://img.shields.io/badge/-chakra-09D3AC.svg?logo=chakraui&style=flat"> 
 <img src="https://img.shields.io/badge/-reactquery-8CA1AF.svg?logo=reactquery&style=flat">
 <img src="https://img.shields.io/badge/-reactrouter-white.svg?logo=reactrouter&style=flat">
