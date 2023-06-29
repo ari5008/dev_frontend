@@ -29,12 +29,12 @@ export const HeartButton = memo(({ dat: trackData }) => {
 
   
   function handleClick() {
-    if (likeFlagData?.liked === false) {
-      incrementTrackLikesMutation.mutate({...trackData, likes: trackData.likes})
-      addLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
-    } else {
+    if (likeFlagData?.liked === true) {
       decrementTrackLikesMutation.mutate({...trackData, likes: trackData.likes})
       addUnLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
+    } else {
+      incrementTrackLikesMutation.mutate({...trackData, likes: trackData.likes})
+      addLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
     }
   }
 
