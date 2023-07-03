@@ -4,6 +4,7 @@ import backgroundImage from "../../images/trackBackground.jpg"
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount"
 import { TrackTabPanel } from './../molecules/tabs/TrackTabPanel';
 import { useQueryTracks } from "../../hooks/useQueryTrack";
+import { useGenreRank } from "../../hooks/useGenreRank";
 
 export const HomeTrack = memo(() => {
 
