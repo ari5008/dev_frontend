@@ -3,11 +3,8 @@ import { Box, Button, Tab, TabIndicator, TabList, TabPanels, Tabs, Text } from "
 import { memo } from "react";
 import backgroundImage from "../../images/trackBackground.jpg"
 import { Link } from "react-router-dom";
-import { TrackTabPanelByLikes } from "../molecules/tabs/TrackTabPanelByLikes";
-import { TrackTabPanelByAsc } from "../molecules/tabs/TrackTabPanelByAsc";
-import { TrackTabPanelByDesc } from "../molecules/tabs/TrackTabPanelByDesc";
-import { TrackTabPanelByGenre } from './../molecules/tabs/TrackTabPanelByGenre';
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount";
+import { TrackTabPanel } from "../molecules/tabs/TrackTabPanel";
 
 export const ViewTrack = memo(() => {
 
@@ -71,10 +68,10 @@ export const ViewTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-          <TrackTabPanelByDesc />
-          <TrackTabPanelByAsc />
-          <TrackTabPanelByLikes />
-          <TrackTabPanelByGenre />
+          <TrackTabPanel sortOption="Asc" />
+          <TrackTabPanel sortOption="Desc" />
+          <TrackTabPanel sortOption="Likes" />
+          <TrackTabPanel sortOption="Genre" />
         </TabPanels>
       </Tabs >
     </>
