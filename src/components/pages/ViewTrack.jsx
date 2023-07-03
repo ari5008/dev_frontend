@@ -5,10 +5,28 @@ import backgroundImage from "../../images/trackBackground.jpg"
 import { Link } from "react-router-dom";
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount";
 import { TrackTabPanel } from "../molecules/tabs/TrackTabPanel";
+import { useQueryTracks } from "../../hooks/useQueryTrack";
+import { useGenreRank } from "../../hooks/useGenreRank";
 
 export const ViewTrack = memo(() => {
 
   const expiry = localStorage.getItem('expiry');
+
+  const { data, isLoading } = useQueryTracks()
+  const DescData = data?.slice().sort((a, b) => {
+    const date1 = new Date(a.created_at);
+    const date2 = new Date(b.created_at);
+
+    return date2 - date1;
+  });
+  const AscData = data?.slice().sort((a, b) => {
+    const date1 = new Date(a.created_at);
+    const date2 = new Date(b.created_at);
+
+    return date1 - date2;
+  });
+  const likesData = data?.slice().sort((a, b) => b.likes - a.likes);
+  const GenreData = data?.slice().sort((a, b) => useGenreRank(a.genre) - useGenreRank(b.genre));
 
   return (
     <>
@@ -68,10 +86,10 @@ export const ViewTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-          <TrackTabPanel sortOption="Asc" />
-          <TrackTabPanel sortOption="Desc" />
-          <TrackTabPanel sortOption="Likes" />
-          <TrackTabPanel sortOption="Genre" />
+          <TrackTabPanel data={DescData} isLoading={isLoading} />
+          <TrackTabPanel data={AscData} isLoading={isLoading} />
+          <TrackTabPanel data={likesData} isLoading={isLoading} />
+          <TrackTabPanel data={GenreData} isLoading={isLoading} />
         </TabPanels>
       </Tabs >
     </>
