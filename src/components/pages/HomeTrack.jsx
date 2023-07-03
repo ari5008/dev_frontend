@@ -1,11 +1,8 @@
 import { Box, Tab, TabIndicator, TabList, TabPanels, Tabs, Text } from "@chakra-ui/react"
 import { memo } from "react"
 import backgroundImage from "../../images/trackBackground.jpg"
-import { TrackTabPanelByLikes } from "../molecules/tabs/TrackTabPanelByLikes"
-import { TrackTabPanelByAsc } from "../molecules/tabs/TrackTabPanelByAsc"
-import { TrackTabPanelByDesc } from "../molecules/tabs/TrackTabPanelByDesc"
-import { TrackTabPanelByGenre } from "../molecules/tabs/TrackTabPanelByGenre"
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount"
+import { TrackTabPanel } from './../molecules/tabs/TrackTabPanel';
 
 export const HomeTrack = memo(() => {
   return (
@@ -59,10 +56,10 @@ export const HomeTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-          <TrackTabPanelByDesc />
-          <TrackTabPanelByAsc />
-          <TrackTabPanelByLikes />
-          <TrackTabPanelByGenre />
+          <TrackTabPanel sortOption="Asc" />
+          <TrackTabPanel sortOption="Desc" />
+          <TrackTabPanel sortOption="Likes" />
+          <TrackTabPanel sortOption="Genre" />
         </TabPanels>
       </Tabs >
     </>

@@ -4,9 +4,9 @@ import { TrackCard } from '../card/TrackCard';
 import { useQueryTracks } from '../../../hooks/useQueryTrack';
 import { CustomSpinner } from "../../atoms/spinner/CustomSpinner";
 
-export const TrackTabPanelByGenre = memo(() => {
-
-  const { data, isLoading } = useQueryTracks("Genre")
+export const TrackTabPanel = memo(({ sortOption }) => {
+  
+  const { data, isLoading } = useQueryTracks(sortOption)
 
   return (
     <>
