@@ -2,16 +2,16 @@ import axios from 'axios';
 import { useError } from './useError';
 import { useQuery } from '@tanstack/react-query';
 
-export const useQueryTracks = (sortOption) => {
+export const useQueryTracks = () => {
   const { switchErrorHandling } = useError();
   const getTracks = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/tracksBy${sortOption}`,
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/tracks`,
       { withCredentials: true }
     );
     return data;
   };
   return useQuery({
-    queryKey: ["tracks", sortOption],
+    queryKey: ["tracks"],
     queryFn: getTracks,
     staleTime: Infinity,
     onError: (err) => {
