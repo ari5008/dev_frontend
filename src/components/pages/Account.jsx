@@ -7,14 +7,16 @@ import { AccountAvatar } from "../atoms/avatar/AccountAvatar";
 import { CheckIcon } from "@chakra-ui/icons";
 import { CustomSpinner } from "../atoms/spinner/CustomSpinner";
 import { TrackCard } from "../molecules/card/TrackCard";
-import { useTracksByAccountId } from "../../hooks/useQueryTrackByAccountId";
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount";
+import { useQueryTracks } from "../../hooks/useQueryTrack";
 
 export const Account = memo(() => {
 
   const [flag] = useState(true)
   const { data: accountData, isLoading } = useQueryAccount()
-  const { data, isLoading: trackLoading } = useTracksByAccountId(accountData?.id);
+  const { data: trackData, isLoading: trackLoading } = useQueryTracks()
+  const trackDataByAccountId = trackData?.slice().filter((track) => track.account_id === accountData?.id)
+
   const { editedAccount } = accountStore()
   const updateAccount = accountStore((state) => state.updateEditedAccount)
   const { updateAccountMutation, loading } = useMutateAccount()
@@ -88,10 +90,10 @@ export const Account = memo(() => {
                 </Flex>
               ) : (
                 <>
-                  {(Array.isArray(data) && data.length !== 0) ? (
+                  {(Array.isArray(trackDataByAccountId) && trackDataByAccountId?.length !== 0) ? (
                     <Wrap pt={{ base: 4, md: 10 }} justify="center">
                       <Grid templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }} gap="50px">
-                        {data?.map((dat, index) => (
+                        {trackDataByAccountId?.map((dat, index) => (
                           <Box key={index} minWidth={{ base: "auto", md: "250px" }}>
                             <TrackCard dat={dat} flag={flag} />
                           </Box>
