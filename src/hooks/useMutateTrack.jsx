@@ -27,10 +27,7 @@ export const useMutateTrack = () => {
     },
     {
       onSuccess: (res) => {
-        queryClient.setQueryData(["tracks"], (oldTracks = []) => {
-          const newTracks = [...oldTracks];
-          return [...newTracks, res.data];
-        });
+        queryClient.setQueryData(["tracks"], (oldTracks = []) => [res.data, ...oldTracks]);
         navigate('/account/tracks')
         showMessage({ title: "登録しました", status: "success" })
         resetEditedTrack()
@@ -57,20 +54,11 @@ export const useMutateTrack = () => {
     {
       onSuccess: (_, variables) => {
         const previousTracks = queryClient.getQueryData(["tracks"])
-        const previousTrackByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id
-        ])
         if (previousTracks !== null && previousTracks !== undefined) {
           queryClient.setQueryData(
             ['tracks'],
             previousTracks.filter((track) => track.id !== variables.id)
           );
-        }
-        if (previousTrackByAccountId) {
-          queryClient.setQueryData(
-            ["tracks", "AccountId", variables.account_id
-            ],
-            previousTrackByAccountId.filter((track) => track.id !== variables.id)
-          )
         }
         navigate('/account')
       },
@@ -94,8 +82,6 @@ export const useMutateTrack = () => {
     {
       onSuccess: (res, variables) => {
         const previousTracks = queryClient.getQueryData(["tracks"]);
-        const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
-
         queryClient.setQueryData(
           ['tracks'],
           previousTracks
@@ -103,14 +89,6 @@ export const useMutateTrack = () => {
               previousTrack.id === variables.id ? res.data : previousTrack
             )
         )
-        if (previousTracksByAccountId) {
-          queryClient.setQueryData(
-            ["tracks", "AccountId", variables.account_id],
-            previousTracksByAccountId.map((previousTrackByAccountId) => (
-              previousTrackByAccountId.id === variables.id ? res.data : previousTrackByAccountId
-            ))
-          )
-        }
       },
       onError: (err) => {
         if (err.response.data.message) {
@@ -132,8 +110,6 @@ export const useMutateTrack = () => {
     {
       onSuccess: (res, variables) => {
         const previousTracks = queryClient.getQueryData(["tracks"]);
-        const previousTracksByAccountId = queryClient.getQueryData(["tracks", "AccountId", variables.account_id])
-
         queryClient.setQueryData(
           ['tracks'],
           previousTracks
@@ -141,14 +117,6 @@ export const useMutateTrack = () => {
               previousTrack.id === variables.id ? res.data : previousTrack
             )
         )
-        if (previousTracksByAccountId) {
-          queryClient.setQueryData(
-            ["tracks", "AccountId", variables.account_id],
-            previousTracksByAccountId.map((previousTrackByAccountId) => (
-              previousTrackByAccountId.id === variables.id ? res.data : previousTrackByAccountId
-            ))
-          )
-        }
       },
       onError: (err) => {
         if (err.response.data.message) {
