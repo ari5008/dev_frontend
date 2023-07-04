@@ -23,7 +23,7 @@ export const Account = memo(() => {
 
   const submitAccountHandler = (e) => {
     e.preventDefault()
-    const accountAndTrack = [editedAccount, data]
+    const accountAndTrack = [editedAccount, trackDataByAccountId]
     updateAccountMutation.mutate(accountAndTrack)
   }
 
