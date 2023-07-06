@@ -6,7 +6,6 @@ import { useMutateTrack } from "../../../hooks/useMutateTrack"
 import { useQueryAccount } from "../../../hooks/useQueryAccount"
 import { useMutateLikeFlag } from "../../../hooks/useMutateLikeFlag"
 import { useQueryLikeFlag } from "../../../hooks/useQueryLikeFlag"
-import axios from "axios"
 
 export const HeartButton = memo(({ dat: trackData }) => {
 
@@ -18,11 +17,6 @@ export const HeartButton = memo(({ dat: trackData }) => {
   async function initialize() {
     if (accountData?.id != 0 && trackData.id != 0) {
       await createLikeFlagMutation.mutateAsync({ account_id: accountData?.id, track_id: trackData.id });
-
-      const { data: response } = await axios.get(`${import.meta.env.VITE_API_URL}/account/getLikeFlag/${trackData.id}`,
-        { withCredentials: true }
-      );
-      setFlag(response.liked);
     }
   }
 
@@ -38,11 +32,9 @@ export const HeartButton = memo(({ dat: trackData }) => {
     if (likeFlagData?.liked === true) {
       decrementTrackLikesMutation.mutate({ ...trackData, likes: trackData.likes })
       addUnLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
-      setFlag(false)
     } else {
       incrementTrackLikesMutation.mutate({ ...trackData, likes: trackData.likes })
       addLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
-      setFlag(true)
     }
   }
 
