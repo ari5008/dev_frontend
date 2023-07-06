@@ -25,7 +25,6 @@ export const CreateTrack = memo(() => {
         genre: editedTrack.genre,
         comment: editedTrack.comment,
         likes: editedTrack.likes,
-        external_url: editedSelectedData.external_url,
       })
     }
   }
