@@ -13,7 +13,7 @@ export const AccountAvatar = memo(({ updateAccount, editedAccount }) => {
       const context = canvas.getContext("2d");
 
       // リサイズ後の幅と高さを指定（例: 幅が300pxでアスペクト比を保持）
-      const maxWidth = 50;
+      const maxWidth = 100;
       const maxHeight = img.height * (maxWidth / img.width);
 
       // canvasに描画してリサイズ
