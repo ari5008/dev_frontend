@@ -1,16 +1,17 @@
 import { Button, Text } from "@chakra-ui/react"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { memo, useEffect, useState } from "react"
+import { memo, useEffect } from "react"
 import { useMutateTrack } from "../../../hooks/useMutateTrack"
 import { useQueryAccount } from "../../../hooks/useQueryAccount"
 import { useMutateLikeFlag } from "../../../hooks/useMutateLikeFlag"
+import { useQueryLikeFlag } from "../../../hooks/useQueryLikeFlag"
 import axios from "axios"
 
 export const HeartButton = memo(({ dat: trackData }) => {
 
   const { data: accountData } = useQueryAccount()
-  const [flag, setFlag] = useState(null);
+  const { data: likeFlagData } = useQueryLikeFlag(trackData.id, accountData?.id)
   const { createLikeFlagMutation, addLikeFlagMutation, addUnLikeFlagMutation } = useMutateLikeFlag()
   const { incrementTrackLikesMutation, decrementTrackLikesMutation } = useMutateTrack()
 
@@ -34,7 +35,7 @@ export const HeartButton = memo(({ dat: trackData }) => {
 
 
   function handleClick() {
-    if (flag === true) {
+    if (likeFlagData?.liked === true) {
       decrementTrackLikesMutation.mutate({ ...trackData, likes: trackData.likes })
       addUnLikeFlagMutation.mutate({ account_id: accountData?.id, track_id: trackData.id })
       setFlag(false)
@@ -56,7 +57,7 @@ export const HeartButton = memo(({ dat: trackData }) => {
     >
       <FontAwesomeIcon
         icon={faHeart}
-        color={flag ? "red" : "black"}
+        color={likeFlagData?.liked ? "red" : "black"}
       />
       <Text ml={4}>{trackData.likes}</Text>
     </Button>
