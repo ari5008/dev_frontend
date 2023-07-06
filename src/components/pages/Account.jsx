@@ -8,22 +8,20 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { CustomSpinner } from "../atoms/spinner/CustomSpinner";
 import { TrackCard } from "../molecules/card/TrackCard";
 import { ScrollToTopOnMount } from "../atoms/scroll/ScrollToTopOnMount";
-import { useQueryTracks } from "../../hooks/useQueryTrack";
+import { useQueryTracksByAccountId } from "../../hooks/useQueryTrackByAccountId";
 
 export const Account = memo(() => {
 
   const [flag] = useState(true)
   const { data: accountData, isLoading } = useQueryAccount()
-  const { data: trackData, isLoading: trackLoading } = useQueryTracks()
-  const trackDataByAccountId = trackData?.slice().filter((track) => track.account_id === accountData?.id)
-
+  const { data: trackData, isLoading: trackLoading } = useQueryTracksByAccountId(accountData?.id);
   const { editedAccount } = accountStore()
   const updateAccount = accountStore((state) => state.updateEditedAccount)
   const { updateAccountMutation, loading } = useMutateAccount()
 
   const submitAccountHandler = (e) => {
     e.preventDefault()
-    const accountAndTrack = [editedAccount, trackDataByAccountId]
+    const accountAndTrack = [editedAccount, trackData]
     updateAccountMutation.mutate(accountAndTrack)
   }
 
@@ -90,10 +88,10 @@ export const Account = memo(() => {
                 </Flex>
               ) : (
                 <>
-                  {(Array.isArray(trackDataByAccountId) && trackDataByAccountId?.length !== 0) ? (
+                  {(Array.isArray(trackData) && trackData?.length !== 0) ? (
                     <Wrap pt={{ base: 4, md: 10 }} justify="center">
                       <Grid templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(2, 1fr)", xl: "repeat(3, 1fr)" }} gap="50px">
-                        {trackDataByAccountId?.map((dat, index) => (
+                        {trackData?.map((dat, index) => (
                           <Box key={index} minWidth={{ base: "auto", md: "250px" }}>
                             <TrackCard dat={dat} flag={flag} />
                           </Box>
