@@ -75,7 +75,7 @@ export const HomeTrack = memo(() => {
           </Box>
         </Box>
         <TabPanels borderBottomRadius="15px" bg="gray.200">
-        <TrackTabPanel data={DescData} isLoading={isLoading} />
+          <TrackTabPanel data={DescData} isLoading={isLoading} />
           <TrackTabPanel data={AscData} isLoading={isLoading} />
           <TrackTabPanel data={likesData} isLoading={isLoading} />
           <TrackTabPanel data={GenreData} isLoading={isLoading} />

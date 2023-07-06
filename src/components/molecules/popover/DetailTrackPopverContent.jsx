@@ -1,7 +1,5 @@
-import { Avatar, Flex, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter, PopoverHeader, Stack, Tag, Text } from "@chakra-ui/react"
+import { Avatar, Flex, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, Stack, Tag, Text } from "@chakra-ui/react"
 import { memo } from "react"
-import { FaSpotify } from "react-icons/fa"
-import { Link } from "react-router-dom"
 import { useQueryAccountByTrackId } from "../../../hooks/useQueryAccountByTrackId"
 
 export const DetailTrackPoverContent = memo(({ dat }) => {
@@ -38,7 +36,7 @@ export const DetailTrackPoverContent = memo(({ dat }) => {
         </PopoverHeader>
         <PopoverArrow bg='#e8e9ef' />
         <PopoverCloseButton />
-        <PopoverBody mt={2}>
+        <PopoverBody m={2}>
           <Stack textAlign='left'>
             <span>
               <Tag colorScheme='blackAlpha'>コメント</Tag>
@@ -48,16 +46,6 @@ export const DetailTrackPoverContent = memo(({ dat }) => {
             </Text>
           </Stack>
         </PopoverBody>
-        <PopoverFooter
-          border='0'
-          pb={4}
-        >
-          <Flex justifyContent='flex-end' mr={1} color="green.600" >
-            <Link to={dat.external_url} >
-              <FaSpotify size="25px" />
-            </Link>
-          </Flex>
-        </PopoverFooter>
       </PopoverContent>
     </>
   )
