@@ -9,7 +9,6 @@ export const trackStore = create((set) => ({
     genre: "",
     comment: "",
     likes: 0,
-    external_url: "",
   },
   updateEditedTrack: (payload) => (
     set({
@@ -26,7 +25,6 @@ export const trackStore = create((set) => ({
         genre: "",
         comment: "",
         likes: 0,
-        external_url: "",
       },
     })
   )
