@@ -15,7 +15,7 @@ export const DetailTrackPoverContent = memo(({ dat }) => {
       >
         <PopoverArrow bg='#e8e9ef' />
         <PopoverCloseButton />
-        <PopoverBody m={4}>
+        <PopoverBody mt={4} mb={5} mx={1}>
           <Stack textAlign='left'>
             <span>
               <Tag colorScheme='blackAlpha'>選曲コメント</Tag>
