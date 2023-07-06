@@ -4,7 +4,6 @@ export const selectedDataStore = create((set) => ({
   editedSelectedData: {
     id: 0,
     name: "",
-    external_url: "",
     artists: "",
     image_url: "",
   },
@@ -18,7 +17,6 @@ export const selectedDataStore = create((set) => ({
       editedSelectedData: {
         id: 0,
         name: "",
-        external_url: "",
         artists: "",
         image_url: "",
       },
