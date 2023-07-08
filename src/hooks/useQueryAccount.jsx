@@ -19,6 +19,7 @@ export const useQueryAccount = () => {
     queryKey: ["account"],
     queryFn: getAccount,
     staleTime: Infinity,
+    refetchInterval: 2000,
     onError: (err) => {
       if (err.response.data.message) {
         switchErrorHandling(err.response.data.message)
