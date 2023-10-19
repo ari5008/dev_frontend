@@ -140,9 +140,9 @@ export const TrackCard = memo(({ dat, flag }) => {
           </PopoverTrigger>
           <DetailTrackPoverContent dat={dat} data={data} />
         </Popover>
-        {(expiry && new Date().getTime() < parseInt(expiry)) ? (
+        {/* {(expiry && new Date().getTime() < parseInt(expiry)) ? (
           <HeartButton dat={dat} />
-        ) : null}
+        ) : null} */}
       </CardFooter>
     </Card>
 
